@@ -130,8 +130,7 @@ release: all
 profile: all
 
 configtest:
-	@echo Validating cnf/trajectory.conf.sample
-	@cfgvalidate -v cnf/trajectory.conf.sample
+	@if [ -x "$$(command -v cfgvalidate)" ]; then cfgvalidate -v cnf/trajectory.conf.sample; fi
 
 $(LIBFILE): $(OBJS)
 	$(CXX) $(CFLAGS) -shared -rdynamic -o $(LIBFILE) $(OBJS) $(LIBS)
