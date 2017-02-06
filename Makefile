@@ -153,7 +153,7 @@ rpm: clean
 	  rpmbuild -ta $(SPEC).tar.gz ; \
 	  rm -f $(SPEC).tar.gz ; \
 	else \
-	  echo $(SPEC).spec missin; \
+	  echo $(SPEC).spec missing; \
 	fi;
 
 .SUFFIXES: $(SUFFIXES) .cpp
