@@ -18,6 +18,8 @@ BuildRequires: smartmet-library-trajectory-devel >= 17.8.28
 BuildRequires: smartmet-library-macgyver-devel >= 17.8.28
 BuildRequires: smartmet-engine-geonames-devel >= 17.8.28
 BuildRequires: smartmet-engine-querydata-devel >= 17.8.28
+BuildRequires: smartmet-library-smarttools-devel
+BuildRequires: bzip2-devel
 Requires: libconfig
 Requires: smartmet-library-macgyver >= 17.8.28
 Requires: smartmet-library-trajectory >= 17.8.28
