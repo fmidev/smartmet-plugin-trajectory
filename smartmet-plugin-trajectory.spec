@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 17.8.28
+Version: 18.3.20
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Plugins
@@ -13,21 +13,21 @@ BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: boost-devel
 BuildRequires: libconfig
-BuildRequires: smartmet-library-spine-devel >= 17.8.28
-BuildRequires: smartmet-library-trajectory-devel >= 17.8.28
-BuildRequires: smartmet-library-macgyver-devel >= 17.8.28
-BuildRequires: smartmet-engine-geonames-devel >= 17.8.28
-BuildRequires: smartmet-engine-querydata-devel >= 17.8.28
+BuildRequires: smartmet-library-spine-devel >= 18.3.7
+BuildRequires: smartmet-library-trajectory-devel >= 18.1.15
+BuildRequires: smartmet-library-macgyver-devel >= 18.2.12
+BuildRequires: smartmet-engine-geonames-devel >= 18.3.20
+BuildRequires: smartmet-engine-querydata-devel >= 18.3.20
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 Requires: libconfig
-Requires: smartmet-library-macgyver >= 17.8.28
-Requires: smartmet-library-trajectory >= 17.8.28
-Requires: smartmet-engine-geonames >= 17.8.28
-Requires: smartmet-engine-querydata >= 17.8.28
-Requires: smartmet-server >= 17.8.28
+Requires: smartmet-library-macgyver >= 18.2.12
+Requires: smartmet-library-trajectory >= 18.1.15
+Requires: smartmet-engine-geonames >= 18.3.20
+Requires: smartmet-engine-querydata >= 18.3.20
+Requires: smartmet-server >= 17.11.10
 Requires: smartmet-trajectory-formats > 16.1.17
-Requires: smartmet-library-spine >= 17.8.28
+Requires: smartmet-library-spine >= 18.3.7
 %if 0%{rhel} >= 7
 Requires: boost-date-time
 Requires: boost-iostreams
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Tue Mar 20 2018 Mika Heiskanen <mika.heiskanen@fmi.fi> - 18.3.20-1.fmi
+- Full recompile of all server plugins
+
 * Mon Aug 28 2017 Mika Heiskanen <mika.heiskanen@fmi.fi> - 17.8.28-1.fmi
 - Upgrade to boost 1.65
 
