@@ -5,8 +5,8 @@
 // ======================================================================
 
 #include "Config.h"
-#include <stdexcept>
 #include <spine/Exception.h>
+#include <stdexcept>
 
 using namespace std;
 

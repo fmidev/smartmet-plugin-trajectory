@@ -6,11 +6,11 @@
 
 #include "Plugin.h"
 
+#include <engines/geonames/Engine.h>
+#include <engines/querydata/Engine.h>
+#include <spine/Convenience.h>
 #include <spine/Exception.h>
 #include <spine/SmartMet.h>
-#include <spine/Convenience.h>
-#include <engines/querydata/Engine.h>
-#include <engines/geonames/Engine.h>
 
 #include <trajectory/NFmiTrajectory.h>
 #include <trajectory/NFmiTrajectorySystem.h>
@@ -25,8 +25,8 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/foreach.hpp>
-#include <boost/iostreams/filtering_stream.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
+#include <boost/iostreams/filtering_stream.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/make_shared.hpp>
 
@@ -780,9 +780,7 @@ void Plugin::shutdown()
  */
 // ----------------------------------------------------------------------
 
-Plugin::~Plugin()
-{
-}
+Plugin::~Plugin() {}
 // ----------------------------------------------------------------------
 /*!
  * \brief Return the plugin name

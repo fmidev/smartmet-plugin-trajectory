@@ -8,9 +8,9 @@
 
 #include "Config.h"
 
-#include <spine/SmartMetPlugin.h>
 #include <spine/HTTP.h>
 #include <spine/Reactor.h>
+#include <spine/SmartMetPlugin.h>
 
 namespace SmartMet
 {
@@ -24,7 +24,7 @@ namespace Geonames
 {
 class Engine;
 }
-}
+}  // namespace Engine
 
 namespace Plugin
 {

@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include <libconfig.h++>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/utility.hpp>
+#include <libconfig.h++>
 #include <string>
 
 namespace SmartMet
