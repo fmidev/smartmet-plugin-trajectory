@@ -653,7 +653,7 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
       std::cout << "Output:" << std::endl << response << std::endl;
 #endif
     }
-    catch (std::exception &e)
+    catch (const std::exception &e)
     {
       std::cerr << boost::posix_time::second_clock::local_time() << " error: " << e.what()
                 << std::endl
