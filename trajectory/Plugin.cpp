@@ -6,22 +6,6 @@
 
 #include "Plugin.h"
 
-#include <engines/geonames/Engine.h>
-#include <engines/querydata/Engine.h>
-#include <spine/Convenience.h>
-#include <spine/Exception.h>
-#include <spine/SmartMet.h>
-
-#include <trajectory/NFmiTrajectory.h>
-#include <trajectory/NFmiTrajectorySystem.h>
-
-#include <newbase/NFmiFastQueryInfo.h>
-#include <newbase/NFmiQueryData.h>
-
-#include <macgyver/AnsiEscapeCodes.h>
-#include <macgyver/TemplateFormatterMT.h>
-#include <macgyver/TimeFormatter.h>
-
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/foreach.hpp>
@@ -29,6 +13,16 @@
 #include <boost/iostreams/filtering_stream.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/make_shared.hpp>
+#include <engines/geonames/Engine.h>
+#include <engines/querydata/Engine.h>
+#include <macgyver/AnsiEscapeCodes.h>
+#include <newbase/NFmiFastQueryInfo.h>
+#include <newbase/NFmiQueryData.h>
+#include <spine/Convenience.h>
+#include <spine/Exception.h>
+#include <spine/SmartMet.h>
+#include <trajectory/NFmiTrajectory.h>
+#include <trajectory/NFmiTrajectorySystem.h>
 
 #include <stdexcept>
 
@@ -277,6 +271,7 @@ std::string template_filename(const std::string &theFormat, const Config &theCon
 // ----------------------------------------------------------------------
 
 std::string format_result(boost::shared_ptr<NFmiTrajectory> trajectory,
+                          const Fmi::TemplateFactory &theTemplateFactory,
                           const Config &theConfig,
                           const std::string &theFormat,
                           bool tessellate,
@@ -308,8 +303,8 @@ std::string format_result(boost::shared_ptr<NFmiTrajectory> trajectory,
     std::ostringstream log;
     try
     {
-      Fmi::TemplateFormatterMT formatter(tmpl);
-      formatter.get()->process(hash, output, log);
+      auto formatter = theTemplateFactory.get(tmpl);
+      formatter->process(hash, output, log);
     }
     catch (...)
     {
@@ -571,8 +566,15 @@ std::string Trajectory::Plugin::query(SmartMet::Spine::Reactor & /* theReactor *
 
     // Convert the results to a string
 
-    std::string result = format_result(
-        trajectory, itsConfig, format, tessellate, extrude, plumecount, timestep, backwards);
+    std::string result = format_result(trajectory,
+                                       itsTemplateFactory,
+                                       itsConfig,
+                                       format,
+                                       tessellate,
+                                       extrude,
+                                       plumecount,
+                                       timestep,
+                                       backwards);
 
     // Compress if so requested
 

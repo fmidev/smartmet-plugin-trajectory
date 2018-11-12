@@ -8,6 +8,7 @@
 
 #include "Config.h"
 
+#include <macgyver/TemplateFactory.h>
 #include <spine/HTTP.h>
 #include <spine/Reactor.h>
 #include <spine/SmartMetPlugin.h>
@@ -56,6 +57,7 @@ class Plugin : public SmartMetPlugin, private boost::noncopyable
 
   const std::string itsModuleName;
   Config itsConfig;
+  Fmi::TemplateFactory itsTemplateFactory;
 
   SmartMet::Spine::Reactor* itsReactor;
   SmartMet::Engine::Querydata::Engine* itsQEngine;
