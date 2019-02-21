@@ -605,12 +605,13 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
                             const SmartMet::Spine::HTTP::Request &theRequest,
                             SmartMet::Spine::HTTP::Response &theResponse)
 {
+  bool isdebug = false;
+
   try
   {
     using boost::posix_time::ptime;
 
-    bool isdebug =
-        ("debug" == SmartMet::Spine::optional_string(theRequest.getParameter("format"), ""));
+    isdebug = ("debug" == SmartMet::Spine::optional_string(theRequest.getParameter("format"), ""));
 
     // Default expiration time
 
@@ -620,87 +621,70 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
 
     ptime t_now = boost::posix_time::second_clock::universal_time();
 
-    try
+    std::string response = query(theReactor, theRequest, theResponse);
+    theResponse.setStatus(SmartMet::Spine::HTTP::Status::ok);
+    theResponse.setContent(response);
+
+    // Build cache expiration time info
+
+    ptime t_expires = t_now + boost::posix_time::seconds(expires_seconds);
+
+    // The headers themselves
+
+    boost::shared_ptr<Fmi::TimeFormatter> tformat(Fmi::TimeFormatter::create("http"));
+
+    std::string cachecontrol =
+        "public, max-age=" + boost::lexical_cast<std::string>(expires_seconds);
+    std::string expiration = tformat->format(t_expires);
+    std::string modification = tformat->format(t_now);
+
+    theResponse.setHeader("Cache-Control", cachecontrol);
+    theResponse.setHeader("Expires", expiration);
+    theResponse.setHeader("Last-Modified", modification);
+
+    theResponse.setHeader("Content-type", mime_type(itsConfig, theRequest) + "; charset=UTF-8");
+
+    if (response.size() == 0)
     {
-      std::string response = query(theReactor, theRequest, theResponse);
-      theResponse.setStatus(SmartMet::Spine::HTTP::Status::ok);
-      theResponse.setContent(response);
-
-      // Build cache expiration time info
-
-      ptime t_expires = t_now + boost::posix_time::seconds(expires_seconds);
-
-      // The headers themselves
-
-      boost::shared_ptr<Fmi::TimeFormatter> tformat(Fmi::TimeFormatter::create("http"));
-
-      std::string cachecontrol =
-          "public, max-age=" + boost::lexical_cast<std::string>(expires_seconds);
-      std::string expiration = tformat->format(t_expires);
-      std::string modification = tformat->format(t_now);
-
-      theResponse.setHeader("Cache-Control", cachecontrol);
-      theResponse.setHeader("Expires", expiration);
-      theResponse.setHeader("Last-Modified", modification);
-
-      theResponse.setHeader("Content-type", mime_type(itsConfig, theRequest) + "; charset=UTF-8");
-
-      if (response.size() == 0)
-      {
-        std::cerr << "Warning: Empty input for request " << theRequest.getQueryString() << " from "
-                  << theRequest.getClientIP() << std::endl;
-      }
+      std::cerr << "Warning: Empty input for request " << theRequest.getQueryString() << " from "
+                << theRequest.getClientIP() << std::endl;
+    }
 
 #ifdef MYDEBUG
-      std::cout << "Output:" << std::endl << response << std::endl;
+    std::cout << "Output:" << std::endl << response << std::endl;
 #endif
-    }
-    catch (const std::exception &e)
-    {
-      std::cerr << boost::posix_time::second_clock::local_time() << " error: " << e.what()
-                << std::endl
-                << "Query: " << theRequest.getURI() << std::endl;
-
-      if (isdebug)
-      {
-        std::string msg = std::string("Error: ") + e.what();
-        theResponse.setContent(msg);
-        theResponse.setStatus(SmartMet::Spine::HTTP::Status::ok);
-      }
-      else
-      {
-        theResponse.setStatus(SmartMet::Spine::HTTP::Status::service_unavailable);
-      }
-      // Remove newlines, make sure length is reasonable
-      std::string msg = e.what();
-      boost::algorithm::replace_all(msg, "\n", " ");
-      msg = msg.substr(0, 100);
-      theResponse.setHeader("X-Trajectory-Error", msg.c_str());
-    }
-    catch (...)
-    {
-      std::cerr << boost::posix_time::second_clock::local_time() << " error: "
-                << "Unknown exception" << std::endl
-                << "Query: " << theRequest.getURI() << std::endl;
-
-      theResponse.setHeader("X-Trajectory-Error", "Unknown exception");
-      if (isdebug)
-      {
-        std::string msg = "Error: Unknown exception";
-        theResponse.setContent(msg);
-        theResponse.setStatus(SmartMet::Spine::HTTP::Status::no_content);
-      }
-      else
-      {
-        theResponse.setStatus(SmartMet::Spine::HTTP::Status::service_unavailable);
-      }
-    }
   }
+
   catch (...)
   {
-    throw SmartMet::Spine::Exception(BCP, "Operation failed!", NULL);
+    // Catching all exceptions
+
+    Spine::Exception ex(BCP, "Request processing exception!", nullptr);
+    ex.addParameter("URI", theRequest.getURI());
+    ex.addParameter("ClientIP", theRequest.getClientIP());
+    ex.printError();
+
+    if (isdebug)
+    {
+      // Delivering the exception information as HTTP content
+      std::string fullMessage = ex.getHtmlStackTrace();
+      theResponse.setContent(fullMessage);
+      theResponse.setStatus(Spine::HTTP::Status::ok);
+    }
+    else
+    {
+      theResponse.setStatus(Spine::HTTP::Status::bad_request);
+    }
+
+    // Adding the first exception information into the response header
+
+    std::string firstMessage = ex.what();
+    boost::algorithm::replace_all(firstMessage, "\n", " ");
+    firstMessage = firstMessage.substr(0, 300);
+    theResponse.setHeader("X-TrajectoryPlugin-Error", firstMessage.c_str());
   }
-}
+
+}  // namespace Trajectory
 
 // ----------------------------------------------------------------------
 /*!
