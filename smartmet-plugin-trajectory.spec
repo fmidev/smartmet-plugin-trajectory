@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 19.2.26
+Version: 19.10.31
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Plugins
@@ -14,21 +14,21 @@ BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: boost-devel
 BuildRequires: libconfig
-BuildRequires: smartmet-library-spine-devel >= 19.9.26
-BuildRequires: smartmet-library-trajectory-devel >= 19.9.26
+BuildRequires: smartmet-library-spine-devel >= 19.10.31
+BuildRequires: smartmet-library-trajectory-devel >= 19.10.31
 BuildRequires: smartmet-library-macgyver-devel >= 19.9.26
-BuildRequires: smartmet-engine-geonames-devel >= 19.9.26
-BuildRequires: smartmet-engine-querydata-devel >= 19.9.26
+BuildRequires: smartmet-engine-geonames-devel >= 19.10.25
+BuildRequires: smartmet-engine-querydata-devel >= 19.10.31
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 Requires: libconfig
 Requires: smartmet-library-macgyver >= 19.9.26
-Requires: smartmet-library-trajectory >= 19.9.26
-Requires: smartmet-engine-geonames >= 19.9.26
-Requires: smartmet-engine-querydata >= 19.9.26
-Requires: smartmet-server >= 19.9.26
+Requires: smartmet-library-trajectory >= 19.10.31
+Requires: smartmet-engine-geonames >= 19.10.25
+Requires: smartmet-engine-querydata >= 19.10.31
+Requires: smartmet-server >= 19.10.1
 Requires: smartmet-trajectory-formats > 16.1.17
-Requires: smartmet-library-spine >= 19.9.26
+Requires: smartmet-library-spine >= 19.10.31
 %if 0%{rhel} >= 7
 Requires: boost-date-time
 Requires: boost-iostreams
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Thu Oct 31 2019 Mika Heiskanen <mika.heiskanen@fmi.fi> - 19.10.31-1.fmi
+- Rebuilt due to newbase API/ABI changes
+
 * Thu Sep 26 2019 Mika Heiskanen <mika.heiskanen@fmi.fi> - 19.2.26-1.fmi
 - Repackaged due to ABI changes
 
