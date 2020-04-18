@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 19.10.31
+Version: 20.4.18
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Plugins
@@ -12,27 +12,27 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
-BuildRequires: boost-devel
+BuildRequires: boost169-devel
 BuildRequires: libconfig
-BuildRequires: smartmet-library-spine-devel >= 19.10.31
-BuildRequires: smartmet-library-trajectory-devel >= 19.10.31
-BuildRequires: smartmet-library-macgyver-devel >= 19.9.26
-BuildRequires: smartmet-engine-geonames-devel >= 19.10.25
-BuildRequires: smartmet-engine-querydata-devel >= 19.10.31
+BuildRequires: smartmet-library-spine-devel >= 20.4.18
+BuildRequires: smartmet-library-trajectory-devel >= 20.4.18
+BuildRequires: smartmet-library-macgyver-devel >= 20.4.18
+BuildRequires: smartmet-engine-geonames-devel >= 20.4.18
+BuildRequires: smartmet-engine-querydata-devel >= 20.4.18
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 Requires: libconfig
-Requires: smartmet-library-macgyver >= 19.9.26
-Requires: smartmet-library-trajectory >= 19.10.31
-Requires: smartmet-engine-geonames >= 19.10.25
-Requires: smartmet-engine-querydata >= 19.10.31
-Requires: smartmet-server >= 19.10.1
+Requires: smartmet-library-macgyver >= 20.4.18
+Requires: smartmet-library-trajectory >= 20.4.18
+Requires: smartmet-engine-geonames >= 20.4.18
+Requires: smartmet-engine-querydata >= 20.4.18
+Requires: smartmet-server >= 20.4.18
 Requires: smartmet-trajectory-formats > 16.1.17
-Requires: smartmet-library-spine >= 19.10.31
+Requires: smartmet-library-spine >= 20.4.18
 %if 0%{rhel} >= 7
-Requires: boost-date-time
-Requires: boost-iostreams
-Requires: boost-thread
+Requires: boost169-date-time
+Requires: boost169-iostreams
+Requires: boost169-thread
 %endif
 Provides: %{SPECNAME}
 Obsoletes: smartmet-brainstorm-trajectory < 16.11.1
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Sat Apr 18 2020 Mika Heiskanen <mika.heiskanen@fmi.fi> - 20.4.18-1.fmi
+- Upgraded to Boost 1.69
+
 * Thu Oct 31 2019 Mika Heiskanen <mika.heiskanen@fmi.fi> - 19.10.31-1.fmi
 - Rebuilt due to newbase API/ABI changes
 
