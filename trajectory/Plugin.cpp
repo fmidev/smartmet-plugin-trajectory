@@ -19,7 +19,7 @@
 #include <newbase/NFmiFastQueryInfo.h>
 #include <newbase/NFmiQueryData.h>
 #include <spine/Convenience.h>
-#include <spine/Exception.h>
+#include <macgyver/Exception.h>
 #include <spine/SmartMet.h>
 #include <trajectory/NFmiTrajectory.h>
 #include <trajectory/NFmiTrajectorySystem.h>
@@ -64,7 +64,7 @@ boost::posix_time::ptime parse_starttime(const std::string &theStr, unsigned lon
   }
   catch (...)
   {
-    throw SmartMet::Spine::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception(BCP, "Operation failed!", NULL);
   }
 }
 
@@ -139,7 +139,7 @@ void hash_trajector(CTPP::CDT &hash,
   }
   catch (...)
   {
-    throw SmartMet::Spine::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception(BCP, "Operation failed!", NULL);
   }
 }
 
@@ -164,12 +164,12 @@ int pretty_direction(FmiDirection dir)
       case kBackward:
         return -1;
       default:
-        throw SmartMet::Spine::Exception(BCP, "Invalid trajectory direction encountered");
+        throw Fmi::Exception(BCP, "Invalid trajectory direction encountered");
     }
   }
   catch (...)
   {
-    throw SmartMet::Spine::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception(BCP, "Operation failed!", NULL);
   }
 #pragma clang diagnostic pop
 }
@@ -242,7 +242,7 @@ void build_hash(CTPP::CDT &hash,
   }
   catch (...)
   {
-    throw SmartMet::Spine::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception(BCP, "Operation failed!", NULL);
   }
 }
 
@@ -260,7 +260,7 @@ std::string template_filename(const std::string &theFormat, const Config &theCon
   }
   catch (...)
   {
-    throw SmartMet::Spine::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception(BCP, "Operation failed!", NULL);
   }
 }
 
@@ -290,7 +290,7 @@ std::string format_result(boost::shared_ptr<NFmiTrajectory> trajectory,
     std::string tmpl = template_filename(theFormat, theConfig);
 
     if (!boost::filesystem::exists(tmpl))
-      throw SmartMet::Spine::Exception(BCP, "Unknown format '" + theFormat + "'");
+      throw Fmi::Exception(BCP, "Unknown format '" + theFormat + "'");
 
     // Build the hash
 
@@ -308,7 +308,7 @@ std::string format_result(boost::shared_ptr<NFmiTrajectory> trajectory,
     }
     catch (...)
     {
-      throw SmartMet::Spine::Exception(
+      throw Fmi::Exception(
           BCP, "Failed to process the trajectories for output: " + log.str());
     }
 
@@ -316,7 +316,7 @@ std::string format_result(boost::shared_ptr<NFmiTrajectory> trajectory,
   }
   catch (...)
   {
-    throw SmartMet::Spine::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception(BCP, "Operation failed!", NULL);
   }
 }
 
@@ -350,7 +350,7 @@ std::string mime_type(const Config &theConfig, const SmartMet::Spine::HTTP::Requ
   }
   catch (...)
   {
-    throw SmartMet::Spine::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception(BCP, "Operation failed!", NULL);
   }
 }
 
@@ -368,7 +368,7 @@ bool is_compressed_format(const std::string &theFormat)
   }
   catch (...)
   {
-    throw SmartMet::Spine::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception(BCP, "Operation failed!", NULL);
   }
 }
 
@@ -397,7 +397,7 @@ float maximum_value_vertically(NFmiFastQueryInfo &theQ,
   }
   catch (...)
   {
-    throw SmartMet::Spine::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception(BCP, "Operation failed!", NULL);
   }
 }
 
@@ -418,10 +418,10 @@ std::string Trajectory::Plugin::query(SmartMet::Spine::Reactor & /* theReactor *
     SmartMet::Engine::Geonames::LocationOptions loptions(itsGeoEngine->parseLocations(theRequest));
 
     if (loptions.locations().empty())
-      throw SmartMet::Spine::Exception(BCP, "No location selected for the simulation");
+      throw Fmi::Exception(BCP, "No location selected for the simulation");
 
     if (loptions.locations().size() > 1)
-      throw SmartMet::Spine::Exception(BCP, "Currently only one simulation location is supported");
+      throw Fmi::Exception(BCP, "Currently only one simulation location is supported");
 
     // Plugin specific settings
 
@@ -478,7 +478,7 @@ std::string Trajectory::Plugin::query(SmartMet::Spine::Reactor & /* theReactor *
 
     auto leveltype = q->levelType();
     if (leveltype != kFmiHybridLevel && leveltype != kFmiPressureLevel)
-      throw SmartMet::Spine::Exception(
+      throw Fmi::Exception(
           BCP, "Selected model does not contain hybrid or pressure level data");
 
     // Calculate the trajectories
@@ -531,7 +531,7 @@ std::string Trajectory::Plugin::query(SmartMet::Spine::Reactor & /* theReactor *
 
       auto info = q->info();
       if (!info->Param(kFmiPressure))
-        throw SmartMet::Spine::Exception(BCP, "Forecast data missing parameter Pressure");
+        throw Fmi::Exception(BCP, "Forecast data missing parameter Pressure");
 
       // maximum pressure = lowest level value, but we do not know the order of the levels
       float pmax = maximum_value_vertically(*info, trajectory->LatLon(), trajectory->Time());
@@ -591,7 +591,7 @@ std::string Trajectory::Plugin::query(SmartMet::Spine::Reactor & /* theReactor *
   }
   catch (...)
   {
-    throw SmartMet::Spine::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception(BCP, "Operation failed!", NULL);
   }
 }
 
@@ -659,7 +659,7 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
   {
     // Catching all exceptions
 
-    Spine::Exception ex(BCP, "Request processing exception!", nullptr);
+    Fmi::Exception ex(BCP, "Request processing exception!", nullptr);
     ex.addParameter("URI", theRequest.getURI());
     ex.addParameter("ClientIP", theRequest.getClientIP());
     ex.printError();
@@ -707,7 +707,7 @@ Plugin::Plugin(SmartMet::Spine::Reactor *theReactor, const char *theConfig)
   }
   catch (...)
   {
-    throw SmartMet::Spine::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception(BCP, "Operation failed!", NULL);
   }
 }
 
@@ -725,7 +725,7 @@ void Plugin::init()
 
     auto engine = itsReactor->getSingleton("Querydata", NULL);
     if (!engine)
-      throw SmartMet::Spine::Exception(BCP, "Querydata engine unavailable");
+      throw Fmi::Exception(BCP, "Querydata engine unavailable");
 
     itsQEngine = reinterpret_cast<SmartMet::Engine::Querydata::Engine *>(engine);
 
@@ -733,7 +733,7 @@ void Plugin::init()
 
     engine = itsReactor->getSingleton("Geonames", NULL);
     if (!engine)
-      throw SmartMet::Spine::Exception(BCP, "Geonames engine unavailable");
+      throw Fmi::Exception(BCP, "Geonames engine unavailable");
 
     itsGeoEngine = reinterpret_cast<SmartMet::Engine::Geonames::Engine *>(engine);
 
@@ -742,11 +742,11 @@ void Plugin::init()
     if (!itsReactor->addContentHandler(this,
                                        itsConfig.defaultUrl(),
                                        boost::bind(&Plugin::callRequestHandler, this, _1, _2, _3)))
-      throw SmartMet::Spine::Exception(BCP, "Failed to register trajectory content handler");
+      throw Fmi::Exception(BCP, "Failed to register trajectory content handler");
   }
   catch (...)
   {
-    throw SmartMet::Spine::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception(BCP, "Operation failed!", NULL);
   }
 }
 
