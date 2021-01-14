@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 20.10.6
+Version: 21.1.14
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Plugins
@@ -14,21 +14,21 @@ BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: boost169-devel
 BuildRequires: libconfig
-BuildRequires: smartmet-library-spine-devel >= 20.9.23
-BuildRequires: smartmet-library-trajectory-devel >= 20.8.21
-BuildRequires: smartmet-library-macgyver-devel >= 20.10.5
-BuildRequires: smartmet-engine-geonames-devel >= 20.9.23
-BuildRequires: smartmet-engine-querydata-devel >= 20.9.23
+BuildRequires: smartmet-library-spine-devel >= 21.1.14
+BuildRequires: smartmet-library-trajectory-devel >= 21.1.14
+BuildRequires: smartmet-library-macgyver-devel >= 21.1.14
+BuildRequires: smartmet-engine-geonames-devel >= 21.1.14
+BuildRequires: smartmet-engine-querydata-devel >= 21.1.14
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 Requires: libconfig
-Requires: smartmet-library-macgyver >= 20.10.5
-Requires: smartmet-library-trajectory >= 20.8.21
-Requires: smartmet-engine-geonames >= 20.9.23
-Requires: smartmet-engine-querydata >= 20.9.23
-Requires: smartmet-server >= 20.9.23
+Requires: smartmet-library-macgyver >= 21.1.14
+Requires: smartmet-library-trajectory >= 21.1.14
+Requires: smartmet-engine-geonames >= 21.1.14
+Requires: smartmet-engine-querydata >= 21.1.14
+Requires: smartmet-server >= 21.1.14
 Requires: smartmet-trajectory-formats > 16.1.17
-Requires: smartmet-library-spine >= 20.9.23
+Requires: smartmet-library-spine >= 21.1.14
 %if 0%{rhel} >= 7
 Requires: boost169-date-time
 Requires: boost169-iostreams
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Thu Jan 14 2021 Mika Heiskanen <mika.heiskanen@fmi.fi> - 21.1.14-1.fmi
+- Repackaged smartmet to resolve debuginfo issues
+
 * Tue Oct  6 2020 Mika Heiskanen <mika.heiskanen@fmi.fi> - 20.10.6-1.fmi
 - Enable sensible relative libconfig include paths
 
