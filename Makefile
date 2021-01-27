@@ -2,93 +2,17 @@ SUBNAME = trajectory
 SPEC = smartmet-plugin-$(SUBNAME)
 INCDIR = smartmet/plugins/$(SUBNAME)
 
-# Installation directories
+REQUIRES = gdal
 
-processor := $(shell uname -p)
-
-ifeq ($(origin PREFIX), undefined)
-  PREFIX = /usr
-else
-  PREFIX = $(PREFIX)
-endif
-
-ifeq ($(processor), x86_64)
-  libdir = $(PREFIX)/lib64
-else
-  libdir = $(PREFIX)/lib
-endif
-
-bindir = $(PREFIX)/bin
-includedir = $(PREFIX)/include
-datadir = $(PREFIX)/share
-plugindir = $(datadir)/smartmet/plugins
-objdir = obj
+include $(shell echo $${PREFIX-/usr})/share/smartmet/devel/makefile.inc
 
 # Compiler options
 
 DEFINES = -DUNIX -D_REENTRANT
 
-# Boost 1.69
-
-ifneq "$(wildcard /usr/include/boost169)" ""
-  INCLUDES += -isystem /usr/include/boost169
-  LIBS += -L/usr/lib64/boost169
-endif
-
-ifneq "$(wildcard /usr/gdal32/include)" ""
-  INCLUDES += -isystem /usr/gdal32/include
-  LIBS += -L$(PREFIX)/gdal32/lib
-else
-  INCLUDES += -isystem /usr/include/gdal
-endif
-
-ifeq ($(CXX), clang++)
-
- FLAGS = \
-	-std=c++11 -fPIC -MD \
-	-fdiagnostics-color=always \
-	-Wno-c++98-compat \
-	-Wno-float-equal \
-	-Wno-padded \
-	-Wno-missing-prototypes
-
- INCLUDES += \
-	-I$(includedir)/smartmet \
-	-isystem $(includedir)/smartmet/newbase \
-	-isystem $(includedir)/mysql
-
-else
-
- FLAGS = -std=c++11 -fPIC -MD -Wall -W -Wno-unused-parameter -fno-omit-frame-pointer -Wno-unknown-pragmas
-
- FLAGS_DEBUG = \
-	-Wcast-align \
-	-Wcast-qual \
-	-Winline \
-	-Wno-multichar \
-	-Wno-pmf-conversions \
-	-Wpointer-arith \
-	-Wwrite-strings
-
- FLAGS_RELEASE = -Wuninitialized
-
- INCLUDES += \
-	-I$(includedir)/smartmet \
-	-I$(includedir)/smartmet/newbase \
-	-I$(includedir)/mysql
-
-endif
-
-# Compile options in detault, debug and profile modes
-
-CFLAGS_RELEASE = $(DEFINES) $(FLAGS) $(FLAGS_RELEASE) -DNDEBUG -O2 -g
-CFLAGS_DEBUG   = $(DEFINES) $(FLAGS) $(FLAGS_DEBUG)   -Werror  -O0 -g
-
-ifneq (,$(findstring debug,$(MAKECMDGOALS)))
-  override CFLAGS += $(CFLAGS_DEBUG)
-else
-  override CFLAGS += $(CFLAGS_RELEASE)
-endif
+INCLUDES += -I$(includedir)/smartmet
+INCLUDES += -isystem $(includedir)/smartmet/newbase
+INCLUDES += -isystem $(includedir)/mysql
 
 LIBS += -L$(libdir) \
 	-lsmartmet-spine \
@@ -104,11 +28,6 @@ LIBS += -L$(libdir) \
 # What to install
 
 LIBFILE = $(SUBNAME).so
-
-# How to install
-
-INSTALL_PROG = install -p -m 775
-INSTALL_DATA = install -p -m 664
 
 # Compilation directories
 
