@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 21.1.14
+Version: 21.1.27
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Plugins
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Wed Jan 27 2021 Andris Pavenis <andris.pavenis@fmi.fi> - 21.1.27-1.fmi
+- Build update: use makefile.inc
+
 * Thu Jan 14 2021 Mika Heiskanen <mika.heiskanen@fmi.fi> - 21.1.14-1.fmi
 - Repackaged smartmet to resolve debuginfo issues
 
