@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 21.5.6
+Version: 21.8.2
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Plugins
@@ -14,21 +14,21 @@ BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: boost169-devel
 BuildRequires: libconfig
-BuildRequires: smartmet-library-spine-devel >= 21.4.16
-BuildRequires: smartmet-library-trajectory-devel >= 21.5.6
-BuildRequires: smartmet-library-macgyver-devel >= 21.2.25
-BuildRequires: smartmet-engine-geonames-devel >= 21.4.12
-BuildRequires: smartmet-engine-querydata-devel >= 21.5.6
+BuildRequires: smartmet-library-spine-devel >= 21.7.28
+BuildRequires: smartmet-library-trajectory-devel >= 21.7.8
+BuildRequires: smartmet-library-macgyver-devel >= 21.7.28
+BuildRequires: smartmet-engine-geonames-devel >= 21.8.2
+BuildRequires: smartmet-engine-querydata-devel >= 21.8.2
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 Requires: libconfig
-Requires: smartmet-library-macgyver >= 21.2.25
-Requires: smartmet-library-trajectory >= 21.5.6
-Requires: smartmet-engine-geonames >= 21.4.12
-Requires: smartmet-engine-querydata >= 21.5.6
-Requires: smartmet-server >= 21.1.14
+Requires: smartmet-library-macgyver >= 21.7.28
+Requires: smartmet-library-trajectory >= 21.7.8
+Requires: smartmet-engine-geonames >= 21.8.2
+Requires: smartmet-engine-querydata >= 21.8.2
+Requires: smartmet-server >= 21.6.3
 Requires: smartmet-trajectory-formats > 16.1.17
-Requires: smartmet-library-spine >= 21.4.16
+Requires: smartmet-library-spine >= 21.7.28
 %if 0%{rhel} >= 7
 Requires: boost169-date-time
 Requires: boost169-iostreams
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Mon Aug  2 2021 Mika Heiskanen <mika.heiskanen@fmi.fi> - 21.8.2-1.fmi
+- Repackaged since GeoEngine ABI changed by switching to boost::atomic_shared_ptr
+
 * Thu May  6 2021 Mika Heiskanen <mika.heiskanen@fmi.fi> - 21.5.6-1.fmi
 - Repackaged due to ABI changes in NFmiAzimuthalArea
 
