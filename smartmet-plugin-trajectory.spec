@@ -5,7 +5,7 @@ Name: %{SPECNAME}
 Version: 21.9.9
 Release: 1%{?dist}.fmi
 License: FMI
-Group: SmartMet/Plugins
+Group: SmartMet/Pluginss
 URL: https://github.com/fmidev/smartmet-plugin-trajectory
 Source0: %{name}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -20,6 +20,7 @@ BuildRequires: smartmet-engine-geonames-devel >= 21.8.30
 BuildRequires: smartmet-engine-querydata-devel >= 21.9.7
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
+BuildRequires: zlib-devel
 Requires: libconfig17
 Requires: smartmet-library-macgyver >= 21.8.30
 Requires: smartmet-library-trajectory >= 21.7.8
