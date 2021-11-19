@@ -23,11 +23,10 @@ BuildRequires: bzip2-devel
 BuildRequires: zlib-devel
 Requires: libconfig17
 Requires: smartmet-library-macgyver >= 21.8.30
-Requires: smartmet-library-trajectory >= 21.7.8
+Requires: smartmet-library-trajectory >= 21.11.19
 Requires: smartmet-engine-geonames >= 21.8.30
 Requires: smartmet-engine-querydata >= 21.9.7
 Requires: smartmet-server >= 21.9.7
-Requires: smartmet-trajectory-formats > 16.1.17
 Requires: smartmet-library-spine >= 21.9.7
 %if 0%{rhel} >= 7
 Requires: boost169-date-time
