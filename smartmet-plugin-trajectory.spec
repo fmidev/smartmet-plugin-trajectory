@@ -3,7 +3,7 @@
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
 Version: 21.11.19
-Release: 1%{?dist}.fmi
+Release: 2%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
 URL: https://github.com/fmidev/smartmet-plugin-trajectory
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Fri Nov 19 2021 Andris Pavēnis <andris.pavenis@fmi.fi> 21.11.19-2.fmi
+- Fix RPM requires
+
 * Fri Nov 19 2021 Andris Pavēnis <andris.pavenis@fmi.fi> 21.11.19-1.fmi
 - Rebuild due to smartmet-library-trajectory packaging changes
 
