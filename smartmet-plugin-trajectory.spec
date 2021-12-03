@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 21.11.19
+Version: 21.12.3
 Release: 2%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
@@ -13,21 +13,21 @@ BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: boost169-devel
-BuildRequires: smartmet-library-spine-devel >= 21.9.7
-BuildRequires: smartmet-library-trajectory-devel >= 21.7.8
-BuildRequires: smartmet-library-macgyver-devel >= 21.8.30
-BuildRequires: smartmet-engine-geonames-devel >= 21.8.30
-BuildRequires: smartmet-engine-querydata-devel >= 21.9.7
+BuildRequires: smartmet-library-spine-devel >= 21.12.2
+BuildRequires: smartmet-library-trajectory-devel >= 21.12.2
+BuildRequires: smartmet-library-macgyver-devel >= 21.12.1
+BuildRequires: smartmet-engine-geonames-devel >= 21.12.2
+BuildRequires: smartmet-engine-querydata-devel >= 21.12.2
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 BuildRequires: zlib-devel
 Requires: libconfig17
-Requires: smartmet-library-macgyver >= 21.8.30
-Requires: smartmet-library-trajectory >= 21.11.19
-Requires: smartmet-engine-geonames >= 21.8.30
-Requires: smartmet-engine-querydata >= 21.9.7
+Requires: smartmet-library-macgyver >= 21.12.1
+Requires: smartmet-library-trajectory >= 21.12.2
+Requires: smartmet-engine-geonames >= 21.12.2
+Requires: smartmet-engine-querydata >= 21.12.2
 Requires: smartmet-server >= 21.9.7
-Requires: smartmet-library-spine >= 21.9.7
+Requires: smartmet-library-spine >= 21.12.2
 %if 0%{rhel} >= 7
 Requires: boost169-date-time
 Requires: boost169-iostreams
