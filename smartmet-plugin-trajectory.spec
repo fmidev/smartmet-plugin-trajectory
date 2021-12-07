@@ -2,8 +2,8 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 21.12.3
-Release: 2%{?dist}.fmi
+Version: 21.12.7
+Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
 URL: https://github.com/fmidev/smartmet-plugin-trajectory
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Tue Dec  7 2021 Andris Pavēnis <andris.pavenis@fmi.fi> 21.12.7-1.fmi
+- Update to postgresql 13 and gdal 3.3
+
 * Fri Nov 19 2021 Andris Pavēnis <andris.pavenis@fmi.fi> 21.11.19-2.fmi
 - Fix RPM requires
 
