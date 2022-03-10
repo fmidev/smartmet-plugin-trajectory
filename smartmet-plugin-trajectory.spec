@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 21.9.9
+Version: 22.3.10
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Plugins
@@ -13,21 +13,22 @@ BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: boost169-devel
-BuildRequires: smartmet-library-spine-devel >= 21.9.7
-BuildRequires: smartmet-library-trajectory-devel >= 21.7.8
-BuildRequires: smartmet-library-macgyver-devel >= 21.8.30
-BuildRequires: smartmet-engine-geonames-devel >= 21.8.30
-BuildRequires: smartmet-engine-querydata-devel >= 21.9.7
+BuildRequires: smartmet-library-spine-devel >= 22.3.8
+BuildRequires: smartmet-library-trajectory-devel >= 22.1.21
+BuildRequires: smartmet-library-macgyver-devel >= 22.3.8
+BuildRequires: smartmet-library-timeseries-devel >= 22.3.10
+BuildRequires: smartmet-engine-geonames-devel >= 22.1.31
+BuildRequires: smartmet-engine-querydata-devel >= 22.3.8
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 Requires: libconfig17
-Requires: smartmet-library-macgyver >= 21.8.30
-Requires: smartmet-library-trajectory >= 21.7.8
-Requires: smartmet-engine-geonames >= 21.8.30
-Requires: smartmet-engine-querydata >= 21.9.7
-Requires: smartmet-server >= 21.9.7
+Requires: smartmet-library-macgyver >= 22.3.8
+Requires: smartmet-library-trajectory >= 22.1.21
+Requires: smartmet-engine-geonames >= 22.1.31
+Requires: smartmet-engine-querydata >= 22.3.8
+Requires: smartmet-server >= 21.11.25
 Requires: smartmet-trajectory-formats > 16.1.17
-Requires: smartmet-library-spine >= 21.9.7
+Requires: smartmet-library-spine >= 22.3.8
 %if 0%{rhel} >= 7
 Requires: boost169-date-time
 Requires: boost169-iostreams
@@ -59,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Thu Mar 10 2022 Mika Heiskanen <mika.heiskanen@fmi.fi> - 22.3.10-1.fmi
+- Repackaged due to refactored library dependencies
+
 * Thu Sep  9 2021 Andris Pavenis <andris.pavenis@fmi.fi> 21.9.9-1.fmi
 - Repackage due to dependency change (libconfig->libconfig17)
 
