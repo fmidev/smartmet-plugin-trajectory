@@ -5,7 +5,7 @@ Name: %{SPECNAME}
 Version: 22.3.10
 Release: 1%{?dist}.fmi
 License: FMI
-Group: SmartMet/Plugins
+Group: SmartMet/Pluginss
 URL: https://github.com/fmidev/smartmet-plugin-trajectory
 Source0: %{name}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -21,6 +21,7 @@ BuildRequires: smartmet-engine-geonames-devel >= 22.1.31
 BuildRequires: smartmet-engine-querydata-devel >= 22.3.8
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
+BuildRequires: zlib-devel
 Requires: libconfig17
 Requires: smartmet-library-macgyver >= 22.3.8
 Requires: smartmet-library-trajectory >= 22.1.21
@@ -62,6 +63,18 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Thu Mar 10 2022 Mika Heiskanen <mika.heiskanen@fmi.fi> - 22.3.10-1.fmi
 - Repackaged due to refactored library dependencies
+
+* Fri Jan 21 2022 Andris Pavēnis <andris.pavenis@fmi.fi> 22.1.21-1.fmi
+- Repackage due to dependency changes
+
+* Tue Dec  7 2021 Andris Pavēnis <andris.pavenis@fmi.fi> 21.12.7-1.fmi
+- Update to postgresql 13 and gdal 3.3
+
+* Fri Nov 19 2021 Andris Pavēnis <andris.pavenis@fmi.fi> 21.11.19-2.fmi
+- Fix RPM requires
+
+* Fri Nov 19 2021 Andris Pavēnis <andris.pavenis@fmi.fi> 21.11.19-1.fmi
+- Rebuild due to smartmet-library-trajectory packaging changes
 
 * Thu Sep  9 2021 Andris Pavenis <andris.pavenis@fmi.fi> 21.9.9-1.fmi
 - Repackage due to dependency change (libconfig->libconfig17)
