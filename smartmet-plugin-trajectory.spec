@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 22.3.10
+Version: 22.3.11
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
@@ -28,7 +28,6 @@ Requires: smartmet-library-trajectory >= 22.1.21
 Requires: smartmet-engine-geonames >= 22.1.31
 Requires: smartmet-engine-querydata >= 22.3.8
 Requires: smartmet-server >= 21.11.25
-Requires: smartmet-trajectory-formats > 16.1.17
 Requires: smartmet-library-spine >= 22.3.8
 %if 0%{rhel} >= 7
 Requires: boost169-date-time
@@ -61,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Fri Mar 11 2022 Mika Heiskanen <mika.heiskanen@fmi.fi> - 22.3.11-1.fmi
+- Removed incorrect dependency on obsoleted trajectory-formats rpm
+
 * Thu Mar 10 2022 Mika Heiskanen <mika.heiskanen@fmi.fi> - 22.3.10-1.fmi
 - Repackaged due to refactored library dependencies
 
