@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 22.3.11
+Version: 22.4.28
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Thu Apr 28 2022 Andris Pavenis <andris.pavenis@fmi.fi> 22.4.28-1.fmi
+- Repackage due to SmartMet::Spine::Reactor ABI changes
+
 * Fri Mar 11 2022 Mika Heiskanen <mika.heiskanen@fmi.fi> - 22.3.11-1.fmi
 - Removed incorrect dependency on obsoleted trajectory-formats rpm
 
