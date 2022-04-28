@@ -13,7 +13,7 @@ BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: boost169-devel
-BuildRequires: smartmet-library-spine-devel >= 22.3.8
+BuildRequires: smartmet-library-spine-devel >= 22.4.26
 BuildRequires: smartmet-library-trajectory-devel >= 22.1.21
 BuildRequires: smartmet-library-macgyver-devel >= 22.3.8
 BuildRequires: smartmet-library-timeseries-devel >= 22.3.10
@@ -28,7 +28,7 @@ Requires: smartmet-library-trajectory >= 22.1.21
 Requires: smartmet-engine-geonames >= 22.1.31
 Requires: smartmet-engine-querydata >= 22.3.8
 Requires: smartmet-server >= 21.11.25
-Requires: smartmet-library-spine >= 22.3.8
+Requires: smartmet-library-spine >= 22.4.26
 %if 0%{rhel} >= 7
 Requires: boost169-date-time
 Requires: boost169-iostreams
