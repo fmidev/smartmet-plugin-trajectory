@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 22.5.23
+Version: 22.5.24
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
@@ -13,22 +13,22 @@ BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: boost169-devel
-BuildRequires: smartmet-library-spine-devel >= 22.5.16
-BuildRequires: smartmet-library-trajectory-devel >= 22.5.20
-BuildRequires: smartmet-library-macgyver-devel >= 22.3.28
-BuildRequires: smartmet-library-timeseries-devel >= 22.5.20
-BuildRequires: smartmet-engine-geonames-devel >= 22.5.20
-BuildRequires: smartmet-engine-querydata-devel >= 22.5.20
+BuildRequires: smartmet-library-spine-devel >= 22.5.24
+BuildRequires: smartmet-library-trajectory-devel >= 22.5.24
+BuildRequires: smartmet-library-macgyver-devel >= 22.5.24
+BuildRequires: smartmet-library-timeseries-devel >= 22.5.24
+BuildRequires: smartmet-engine-geonames-devel >= 22.5.24
+BuildRequires: smartmet-engine-querydata-devel >= 22.5.24
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 BuildRequires: zlib-devel
 Requires: libconfig17
-Requires: smartmet-library-macgyver >= 22.3.28
-Requires: smartmet-library-trajectory >= 22.5.20
-Requires: smartmet-engine-geonames >= 22.5.20
-Requires: smartmet-engine-querydata >= 22.5.20
+Requires: smartmet-library-macgyver >= 22.5.24
+Requires: smartmet-library-trajectory >= 22.5.24
+Requires: smartmet-engine-geonames >= 22.5.24
+Requires: smartmet-engine-querydata >= 22.5.24
 Requires: smartmet-server >= 22.5.16
-Requires: smartmet-library-spine >= 22.5.16
+Requires: smartmet-library-spine >= 22.5.24
 %if 0%{rhel} >= 7
 Requires: boost169-date-time
 Requires: boost169-iostreams
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Tue May 24 2022 Mika Heiskanen <mika.heiskanen@fmi.fi> - 22.5.24-1.fmi
+- Repackaged due to NFmiArea ABI changes
+
 * Mon May 23 2022 Mika Heiskanen <mika.heiskanen@fmi.fi> - 22.5.23-1.fmi
 - Repackaged due to ABI changes in newbase LatLon methods
 
