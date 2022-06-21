@@ -9,30 +9,39 @@ Group: SmartMet/Pluginss
 URL: https://github.com/fmidev/smartmet-plugin-trajectory
 Source0: %{name}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+%if 0%{?rhel} && 0%{rhel} < 9
+%define smartmet_boost boost169
+%else
+%define smartmet_boost boost
+%endif
+
+%define smartmet_fmt_min 8.1.1
+%define smartmet_fmt_max 8.2.0
+
 BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
-BuildRequires: boost169-devel
-BuildRequires: smartmet-library-spine-devel >= 22.5.24
+BuildRequires: %{smartmet_boost}-devel
+BuildRequires: smartmet-library-spine-devel >= 22.6.16
 BuildRequires: smartmet-library-trajectory-devel >= 22.5.24
-BuildRequires: smartmet-library-macgyver-devel >= 22.5.24
-BuildRequires: smartmet-library-timeseries-devel >= 22.5.24
-BuildRequires: smartmet-engine-geonames-devel >= 22.5.24
-BuildRequires: smartmet-engine-querydata-devel >= 22.5.31
+BuildRequires: smartmet-library-macgyver-devel >= 22.6.16
+BuildRequires: smartmet-library-timeseries-devel >= 22.6.16
+BuildRequires: smartmet-engine-geonames-devel >= 22.6.17
+BuildRequires: smartmet-engine-querydata-devel >= 22.6.17
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 BuildRequires: zlib-devel
 Requires: libconfig17
-Requires: smartmet-library-macgyver >= 22.5.24
+Requires: smartmet-library-macgyver >= 22.6.16
 Requires: smartmet-library-trajectory >= 22.5.24
-Requires: smartmet-engine-geonames >= 22.5.24
-Requires: smartmet-engine-querydata >= 22.5.31
+Requires: smartmet-engine-geonames >= 22.6.17
+Requires: smartmet-engine-querydata >= 22.6.17
 Requires: smartmet-server >= 22.5.16
-Requires: smartmet-library-spine >= 22.5.24
+Requires: smartmet-library-spine >= 22.6.16
 %if 0%{rhel} >= 7
-Requires: boost169-date-time
-Requires: boost169-iostreams
-Requires: boost169-thread
+Requires: %{smartmet_boost}-date-time
+Requires: %{smartmet_boost}-iostreams
+Requires: %{smartmet_boost}-thread
 %endif
 Provides: %{SPECNAME}
 Obsoletes: smartmet-brainstorm-trajectory < 16.11.1
