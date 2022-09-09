@@ -36,24 +36,24 @@ class PluginImpl;
 class Plugin : public SmartMetPlugin, private boost::noncopyable
 {
  public:
+  Plugin() = delete;
   Plugin(SmartMet::Spine::Reactor* theReactor, const char* theConfig);
-  virtual ~Plugin();
+  ~Plugin() override;
 
-  const std::string& getPluginName() const;
-  int getRequiredAPIVersion() const;
+  const std::string& getPluginName() const override;
+  int getRequiredAPIVersion() const override;
 
  protected:
-  void init();
-  void shutdown();
+  void init() override;
+  void shutdown() override;
   void requestHandler(SmartMet::Spine::Reactor& theReactor,
                       const SmartMet::Spine::HTTP::Request& theRequest,
-                      SmartMet::Spine::HTTP::Response& theResponse);
+                      SmartMet::Spine::HTTP::Response& theResponse) override;
 
  private:
-  Plugin();
   std::string query(SmartMet::Spine::Reactor& theReactor,
-                    const SmartMet::Spine::HTTP::Request& req,
-                    SmartMet::Spine::HTTP::Response& response);
+                    const SmartMet::Spine::HTTP::Request& theRequest,
+                    SmartMet::Spine::HTTP::Response& theResponse);
 
   const std::string itsModuleName;
   Config itsConfig;

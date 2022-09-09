@@ -48,7 +48,7 @@ Config::Config(const string& configfile)
       boost::filesystem::path p = configfile;
       p.remove_filename();
       itsConfig.setIncludeDir(p.c_str());
-      
+
       itsConfig.readFile(configfile.c_str());
 
       itsConfig.lookupValue("templates", itsDefaultTemplateDirectory);

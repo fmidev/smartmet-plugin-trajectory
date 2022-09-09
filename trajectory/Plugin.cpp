@@ -8,18 +8,16 @@
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/filesystem/operations.hpp>
-#include <boost/foreach.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
-#include <boost/lexical_cast.hpp>
 #include <boost/make_shared.hpp>
 #include <engines/geonames/Engine.h>
 #include <engines/querydata/Engine.h>
 #include <macgyver/AnsiEscapeCodes.h>
+#include <macgyver/Exception.h>
 #include <newbase/NFmiFastQueryInfo.h>
 #include <newbase/NFmiQueryData.h>
 #include <spine/Convenience.h>
-#include <macgyver/Exception.h>
 #include <spine/SmartMet.h>
 #include <trajectory/NFmiTrajectory.h>
 #include <trajectory/NFmiTrajectorySystem.h>
@@ -64,7 +62,7 @@ boost::posix_time::ptime parse_starttime(const std::string &theStr, unsigned lon
   }
   catch (...)
   {
-    throw Fmi::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception::Trace(BCP, "Operation failed!");
   }
 }
 
@@ -104,7 +102,7 @@ void hash_trajector(CTPP::CDT &hash,
     if (index == 0)
       hash["name"] = "Main trajectory";
     else
-      hash["name"] = "Plume " + boost::lexical_cast<std::string>(index);
+      hash["name"] = "Plume " + std::to_string(index);
 
     // Start time
 
@@ -139,7 +137,7 @@ void hash_trajector(CTPP::CDT &hash,
   }
   catch (...)
   {
-    throw Fmi::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception::Trace(BCP, "Operation failed!");
   }
 }
 
@@ -169,7 +167,7 @@ int pretty_direction(FmiDirection dir)
   }
   catch (...)
   {
-    throw Fmi::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception::Trace(BCP, "Operation failed!");
   }
 #pragma clang diagnostic pop
 }
@@ -233,7 +231,7 @@ void build_hash(CTPP::CDT &hash,
     if (trajectory.PlumesUsed())
     {
       const auto &plumes = trajectory.PlumeTrajectories();
-      BOOST_FOREACH (const auto &traj, plumes)
+      for (const auto &traj : plumes)
       {
         ++index;
         hash_trajector(tgroup[index], index, *traj, timestep, backwards);
@@ -242,7 +240,7 @@ void build_hash(CTPP::CDT &hash,
   }
   catch (...)
   {
-    throw Fmi::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception::Trace(BCP, "Operation failed!");
   }
 }
 
@@ -260,7 +258,7 @@ std::string template_filename(const std::string &theFormat, const Config &theCon
   }
   catch (...)
   {
-    throw Fmi::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception::Trace(BCP, "Operation failed!");
   }
 }
 
@@ -308,15 +306,14 @@ std::string format_result(boost::shared_ptr<NFmiTrajectory> trajectory,
     }
     catch (...)
     {
-      throw Fmi::Exception(
-          BCP, "Failed to process the trajectories for output: " + log.str());
+      throw Fmi::Exception(BCP, "Failed to process the trajectories for output: " + log.str());
     }
 
     return output.str();
   }
   catch (...)
   {
-    throw Fmi::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception::Trace(BCP, "Operation failed!");
   }
 }
 
@@ -350,7 +347,7 @@ std::string mime_type(const Config &theConfig, const SmartMet::Spine::HTTP::Requ
   }
   catch (...)
   {
-    throw Fmi::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception::Trace(BCP, "Operation failed!");
   }
 }
 
@@ -368,7 +365,7 @@ bool is_compressed_format(const std::string &theFormat)
   }
   catch (...)
   {
-    throw Fmi::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception::Trace(BCP, "Operation failed!");
   }
 }
 
@@ -397,7 +394,7 @@ float maximum_value_vertically(NFmiFastQueryInfo &theQ,
   }
   catch (...)
   {
-    throw Fmi::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception::Trace(BCP, "Operation failed!");
   }
 }
 
@@ -478,8 +475,7 @@ std::string Trajectory::Plugin::query(SmartMet::Spine::Reactor & /* theReactor *
 
     auto leveltype = q->levelType();
     if (leveltype != kFmiHybridLevel && leveltype != kFmiPressureLevel)
-      throw Fmi::Exception(
-          BCP, "Selected model does not contain hybrid or pressure level data");
+      throw Fmi::Exception(BCP, "Selected model does not contain hybrid or pressure level data");
 
     // Calculate the trajectories
 
@@ -591,7 +587,7 @@ std::string Trajectory::Plugin::query(SmartMet::Spine::Reactor & /* theReactor *
   }
   catch (...)
   {
-    throw Fmi::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception::Trace(BCP, "Operation failed!");
   }
 }
 
@@ -633,8 +629,7 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
 
     boost::shared_ptr<Fmi::TimeFormatter> tformat(Fmi::TimeFormatter::create("http"));
 
-    std::string cachecontrol =
-        "public, max-age=" + boost::lexical_cast<std::string>(expires_seconds);
+    std::string cachecontrol = "public, max-age=" + std::to_string(expires_seconds);
     std::string expiration = tformat->format(t_expires);
     std::string modification = tformat->format(t_now);
 
@@ -644,7 +639,7 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
 
     theResponse.setHeader("Content-type", mime_type(itsConfig, theRequest) + "; charset=UTF-8");
 
-    if (response.size() == 0)
+    if (response.empty())
     {
       std::cerr << "Warning: Empty input for request " << theRequest.getQueryString() << " from "
                 << theRequest.getClientIP() << std::endl;
@@ -681,7 +676,7 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
     std::string firstMessage = ex.what();
     boost::algorithm::replace_all(firstMessage, "\n", " ");
     firstMessage = firstMessage.substr(0, 300);
-    theResponse.setHeader("X-TrajectoryPlugin-Error", firstMessage.c_str());
+    theResponse.setHeader("X-TrajectoryPlugin-Error", firstMessage);
   }
 
 }  // namespace Trajectory
@@ -693,7 +688,7 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
 // ----------------------------------------------------------------------
 
 Plugin::Plugin(SmartMet::Spine::Reactor *theReactor, const char *theConfig)
-    : SmartMetPlugin(), itsModuleName("Trajectory"), itsConfig(theConfig), itsReactor(theReactor)
+    : itsModuleName("Trajectory"), itsConfig(theConfig), itsReactor(theReactor)
 {
   try
   {
@@ -707,7 +702,7 @@ Plugin::Plugin(SmartMet::Spine::Reactor *theReactor, const char *theConfig)
   }
   catch (...)
   {
-    throw Fmi::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception::Trace(BCP, "Operation failed!");
   }
 }
 
@@ -725,7 +720,7 @@ void Plugin::init()
   {
     /* QEngine */
 
-    auto engine = itsReactor->getSingleton("Querydata", NULL);
+    auto *engine = itsReactor->getSingleton("Querydata", nullptr);
     if (!engine)
       throw Fmi::Exception(BCP, "Querydata engine unavailable");
 
@@ -733,7 +728,7 @@ void Plugin::init()
 
     /* GeoEngine */
 
-    engine = itsReactor->getSingleton("Geonames", NULL);
+    engine = itsReactor->getSingleton("Geonames", nullptr);
     if (!engine)
       throw Fmi::Exception(BCP, "Geonames engine unavailable");
 
@@ -748,7 +743,7 @@ void Plugin::init()
   }
   catch (...)
   {
-    throw Fmi::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception::Trace(BCP, "Operation failed!");
   }
 }
 
@@ -768,7 +763,8 @@ void Plugin::shutdown()
  */
 // ----------------------------------------------------------------------
 
-Plugin::~Plugin() {}
+Plugin::~Plugin() = default;
+
 // ----------------------------------------------------------------------
 /*!
  * \brief Return the plugin name
