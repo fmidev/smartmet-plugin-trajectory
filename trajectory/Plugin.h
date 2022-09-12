@@ -38,7 +38,6 @@ class Plugin : public SmartMetPlugin, private boost::noncopyable
  public:
   Plugin() = delete;
   Plugin(SmartMet::Spine::Reactor* theReactor, const char* theConfig);
-  ~Plugin() override;
 
   const std::string& getPluginName() const override;
   int getRequiredAPIVersion() const override;

@@ -24,21 +24,6 @@ namespace Trajectory
 // ----------------------------------------------------------------------
 
 Config::Config(const string& configfile)
-    : itsConfig(),
-      itsDefaultTemplateDirectory("/usr/share/smartmet/trajectories"),
-      itsDefaultUrl("/trajectory"),
-      itsDefaultTimeStep(10),
-      itsDefaultSimulationLength(24),
-      itsDefaultFormat("kml"),
-      itsDefaultModel("hirlam_eurooppa_mallipinta"),
-      itsDefaultPlumeDisturbance(25),
-      itsDefaultPressure(850),
-      itsDefaultPlumePressureRange(0),
-      itsDefaultPlumeRadius(0),
-      itsDefaultPlumeInterval(0),
-      itsDefaultIsentropic(false),
-      itsDefaultKmlTessellate(false),
-      itsDefaultKmlExtrude(false)
 {
   try
   {
@@ -69,7 +54,7 @@ Config::Config(const string& configfile)
   }
   catch (...)
   {
-    throw Fmi::Exception(BCP, "Operation failed!", NULL);
+    throw Fmi::Exception::Trace(BCP, "Operation failed!");
   }
 }
 

@@ -20,6 +20,7 @@ namespace Trajectory
 class Config : private boost::noncopyable
 {
  public:
+  Config() = delete;
   Config(const std::string& configfile);
 
   const std::string& defaultTemplateDirectory() const;
@@ -38,26 +39,24 @@ class Config : private boost::noncopyable
   bool defaultKmlExtrude() const;
 
  private:
-  Config();
-
   libconfig::Config itsConfig;
-  std::string itsDefaultTemplateDirectory;  // format templates
-  std::string itsDefaultUrl;
-  unsigned int itsDefaultTimeStep;          // in minutes
-  unsigned int itsDefaultSimulationLength;  // simulation length in hours
-  std::string itsDefaultFormat;             // kml, kmz, gpx etc
-  std::string itsDefaultModel;              // hirlam_eurooppa_mallipinta, ...
+  std::string itsDefaultTemplateDirectory = "/usr/share/smartmet/trajectories";  // format templates
+  std::string itsDefaultUrl = "/trajectory";
+  unsigned int itsDefaultTimeStep = 10;                        // in minutes
+  unsigned int itsDefaultSimulationLength = 24;                // simulation length in hours
+  std::string itsDefaultFormat = "kml";                        // kml, kmz, gpx etc
+  std::string itsDefaultModel = "hirlam_eurooppa_mallipinta";  // hirlam_eurooppa_mallipinta, ...
 
-  double itsDefaultPlumeDisturbance;     // disturbance percentage
-  double itsDefaultPressure;             // hPa
-  double itsDefaultPlumePressureRange;   // perturbation in hPa
-  double itsDefaultPlumeRadius;          // perturbation in km
-  unsigned int itsDefaultPlumeInterval;  // perturbation in minutes
+  double itsDefaultPlumeDisturbance = 25;    // disturbance percentage
+  double itsDefaultPressure = 850;           // hPa
+  double itsDefaultPlumePressureRange = 0;   // perturbation in hPa
+  double itsDefaultPlumeRadius = 0;          // perturbation in km
+  unsigned int itsDefaultPlumeInterval = 0;  // perturbation in minutes
 
-  bool itsDefaultIsentropic;
+  bool itsDefaultIsentropic = false;
 
-  bool itsDefaultKmlTessellate;  // KML specific display options
-  bool itsDefaultKmlExtrude;
+  bool itsDefaultKmlTessellate = false;  // KML specific display options
+  bool itsDefaultKmlExtrude = false;
 
 };  // class Config
 

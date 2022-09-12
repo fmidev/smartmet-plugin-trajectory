@@ -149,9 +149,6 @@ void hash_trajector(CTPP::CDT &hash,
 
 int pretty_direction(FmiDirection dir)
 {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wswitch-enum"
-
   try
   {
     // This newbase enum is hideous
@@ -169,7 +166,6 @@ int pretty_direction(FmiDirection dir)
   {
     throw Fmi::Exception::Trace(BCP, "Operation failed!");
   }
-#pragma clang diagnostic pop
 }
 
 // ----------------------------------------------------------------------
@@ -268,7 +264,7 @@ std::string template_filename(const std::string &theFormat, const Config &theCon
  */
 // ----------------------------------------------------------------------
 
-std::string format_result(boost::shared_ptr<NFmiTrajectory> trajectory,
+std::string format_result(const boost::shared_ptr<NFmiTrajectory> &trajectory,
                           const Fmi::TemplateFactory &theTemplateFactory,
                           const Config &theConfig,
                           const std::string &theFormat,
@@ -757,13 +753,6 @@ void Plugin::shutdown()
 {
   std::cout << "  -- Shutdown requested (trajectory)\n";
 }
-// ----------------------------------------------------------------------
-/*!
- * \brief Destructor
- */
-// ----------------------------------------------------------------------
-
-Plugin::~Plugin() = default;
 
 // ----------------------------------------------------------------------
 /*!
