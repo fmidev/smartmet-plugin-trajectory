@@ -42,10 +42,10 @@ class Config : private boost::noncopyable
   libconfig::Config itsConfig;
   std::string itsDefaultTemplateDirectory = "/usr/share/smartmet/trajectories";  // format templates
   std::string itsDefaultUrl = "/trajectory";
-  unsigned int itsDefaultTimeStep = 10;                        // in minutes
-  unsigned int itsDefaultSimulationLength = 24;                // simulation length in hours
-  std::string itsDefaultFormat = "kml";                        // kml, kmz, gpx etc
-  std::string itsDefaultModel = "hirlam_eurooppa_mallipinta";  // hirlam_eurooppa_mallipinta, ...
+  unsigned int itsDefaultTimeStep = 10;          // in minutes
+  unsigned int itsDefaultSimulationLength = 24;  // simulation length in hours
+  std::string itsDefaultFormat = "kml";          // kml, kmz, gpx etc
+  std::string itsDefaultModel = "ecmwf_eurooppa_mallipinta";
 
   double itsDefaultPlumeDisturbance = 25;    // disturbance percentage
   double itsDefaultPressure = 850;           // hPa

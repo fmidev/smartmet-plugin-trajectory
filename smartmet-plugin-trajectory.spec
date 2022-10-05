@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 22.9.12
+Version: 22.10.5
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
@@ -25,8 +25,8 @@ BuildRequires: %{smartmet_boost}-devel
 BuildRequires: smartmet-library-spine-devel >= 22.9.5
 BuildRequires: smartmet-library-trajectory-devel >= 22.6.17
 BuildRequires: smartmet-library-macgyver-devel >= 22.8.23
-BuildRequires: smartmet-library-timeseries-devel >= 22.9.9
-BuildRequires: smartmet-engine-geonames-devel >= 22.8.25
+BuildRequires: smartmet-library-timeseries-devel >= 22.10.4
+BuildRequires: smartmet-engine-geonames-devel >= 22.10.4
 BuildRequires: smartmet-engine-querydata-devel >= 22.9.9
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
@@ -34,7 +34,7 @@ BuildRequires: zlib-devel
 Requires: libconfig17
 Requires: smartmet-library-macgyver >= 22.8.23
 Requires: smartmet-library-trajectory >= 22.6.17
-Requires: smartmet-engine-geonames >= 22.8.25
+Requires: smartmet-engine-geonames >= 22.10.4
 Requires: smartmet-engine-querydata >= 22.9.9
 Requires: smartmet-server >= 22.8.19
 Requires: smartmet-library-spine >= 22.9.5
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Wed Oct  5 2022 Mika Heiskanen <mika.heiskanen@fmi.fi> - 22.10.5-1.fmi
+- Default model is now ECMWF, HIRLAM has been deprecated
+
 * Mon Sep 12 2022 Mika Heiskanen <mika.heiskanen@fmi.fi> - 22.9.12-1.fmi
 - Silenced several compiler warnings
 
