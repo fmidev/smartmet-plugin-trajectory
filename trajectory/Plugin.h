@@ -33,10 +33,12 @@ namespace Trajectory
 {
 class PluginImpl;
 
-class Plugin : public SmartMetPlugin, private boost::noncopyable
+class Plugin : public SmartMetPlugin
 {
  public:
   Plugin() = delete;
+  Plugin(const Plugin& other) = delete;
+  Plugin& operator=(const Plugin& other) = delete;
   Plugin(SmartMet::Spine::Reactor* theReactor, const char* theConfig);
 
   const std::string& getPluginName() const override;

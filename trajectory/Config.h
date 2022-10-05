@@ -7,7 +7,6 @@
 #pragma once
 
 #include <boost/date_time/posix_time/posix_time.hpp>
-#include <boost/utility.hpp>
 #include <libconfig.h++>
 #include <string>
 
@@ -17,10 +16,12 @@ namespace Plugin
 {
 namespace Trajectory
 {
-class Config : private boost::noncopyable
+class Config
 {
  public:
   Config() = delete;
+  Config(const Config& other) = delete;
+  Config& operator=(const Config& other) = delete;
   Config(const std::string& configfile);
 
   const std::string& defaultTemplateDirectory() const;
