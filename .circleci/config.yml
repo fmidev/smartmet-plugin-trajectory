@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build-rhel7:
+  build-rhel8:
     docker:
       - image: fmidev/smartmet-cibase-8:latest
     resource_class: xlarge
@@ -17,7 +17,7 @@ jobs:
       - persist_to_workspace:
           root: /dist
           paths: ./*.rpm
-  test-rhel7:
+  test-rhel8:
     docker:
       - image: fmidev/smartmet-cibase-8:latest
     resource_class: xlarge
@@ -39,7 +39,7 @@ jobs:
       - store_artifacts:
           path: /dist
           destination: dist/
-  upload-rhel7:
+  upload-rhel8:
     docker:
       - image: fmidev/smartmet-cibase-8:latest
     resource_class: xlarge
