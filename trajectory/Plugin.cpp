@@ -603,6 +603,10 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
   {
     using boost::posix_time::ptime;
 
+    if (checkRequest(theRequest, theResponse, false)) {
+        return;
+    }
+
     isdebug = ("debug" == SmartMet::Spine::optional_string(theRequest.getParameter("format"), ""));
 
     // Default expiration time
