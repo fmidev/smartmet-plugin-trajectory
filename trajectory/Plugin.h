@@ -36,10 +36,13 @@ class PluginImpl;
 class Plugin : public SmartMetPlugin
 {
  public:
+  Plugin(SmartMet::Spine::Reactor* theReactor, const char* theConfig);
+
   Plugin() = delete;
   Plugin(const Plugin& other) = delete;
   Plugin& operator=(const Plugin& other) = delete;
-  Plugin(SmartMet::Spine::Reactor* theReactor, const char* theConfig);
+  Plugin(Plugin&& other) = delete;
+  Plugin& operator=(Plugin&& other) = delete;
 
   const std::string& getPluginName() const override;
   int getRequiredAPIVersion() const override;

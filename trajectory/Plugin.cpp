@@ -603,8 +603,9 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
   {
     using boost::posix_time::ptime;
 
-    if (checkRequest(theRequest, theResponse, false)) {
-        return;
+    if (checkRequest(theRequest, theResponse, false))
+    {
+      return;
     }
 
     isdebug = ("debug" == SmartMet::Spine::optional_string(theRequest.getParameter("format"), ""));
@@ -738,7 +739,11 @@ void Plugin::init()
 
     if (!itsReactor->addContentHandler(this,
                                        itsConfig.defaultUrl(),
-                                       boost::bind(&Plugin::callRequestHandler, this, _1, _2, _3)))
+                                       [this](Spine::Reactor &theReactor,
+                                              const Spine::HTTP::Request &theRequest,
+                                              Spine::HTTP::Response &theResponse) {
+                                         callRequestHandler(theReactor, theRequest, theResponse);
+                                       }))
       throw Fmi::Exception(BCP, "Failed to register trajectory content handler");
   }
   catch (...)
