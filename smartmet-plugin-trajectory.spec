@@ -22,10 +22,10 @@ BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: %{smartmet_boost}-devel
-BuildRequires: smartmet-library-spine-devel >= 23.1.16
+BuildRequires: smartmet-library-spine-devel >= 23.2.8
 BuildRequires: smartmet-library-trajectory-devel >= 22.6.17
 BuildRequires: smartmet-library-macgyver-devel >= 22.12.16
-BuildRequires: smartmet-library-timeseries-devel >= 22.10.25
+BuildRequires: smartmet-library-timeseries-devel >= 23.1.31
 BuildRequires: smartmet-engine-geonames-devel >= 23.1.18
 BuildRequires: smartmet-engine-querydata-devel >= 22.12.15
 BuildRequires: smartmet-library-smarttools-devel
@@ -36,8 +36,8 @@ Requires: smartmet-library-macgyver >= 22.12.16
 Requires: smartmet-library-trajectory >= 22.6.17
 Requires: smartmet-engine-geonames >= 23.1.18
 Requires: smartmet-engine-querydata >= 22.12.15
-Requires: smartmet-server >= 23.1.10
-Requires: smartmet-library-spine >= 23.1.16
+Requires: smartmet-server >= 23.2.1
+Requires: smartmet-library-spine >= 23.2.8
 %if 0%{rhel} >= 7
 Requires: %{smartmet_boost}-date-time
 Requires: %{smartmet_boost}-iostreams

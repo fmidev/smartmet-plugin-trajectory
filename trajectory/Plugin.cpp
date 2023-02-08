@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "Plugin.h"
-
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
@@ -18,6 +17,7 @@
 #include <newbase/NFmiFastQueryInfo.h>
 #include <newbase/NFmiQueryData.h>
 #include <spine/Convenience.h>
+#include <spine/HostInfo.h>
 #include <spine/SmartMet.h>
 #include <trajectory/NFmiTrajectory.h>
 #include <trajectory/NFmiTrajectorySystem.h>
@@ -658,6 +658,7 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
     Fmi::Exception ex(BCP, "Request processing exception!", nullptr);
     ex.addParameter("URI", theRequest.getURI());
     ex.addParameter("ClientIP", theRequest.getClientIP());
+    ex.addParameter("ClientIP", Spine::HostInfo::getHostName(theRequest.getClientIP()));
     ex.printError();
 
     if (isdebug)
