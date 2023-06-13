@@ -7,6 +7,7 @@
 #include "Config.h"
 #include <boost/filesystem/path.hpp>
 #include <macgyver/Exception.h>
+#include <spine/ConfigTools.h>
 #include <stdexcept>
 
 using namespace std;
@@ -35,6 +36,7 @@ Config::Config(const string& configfile)
       itsConfig.setIncludeDir(p.c_str());
 
       itsConfig.readFile(configfile.c_str());
+      Spine::expandVariables(itsConfig);
 
       itsConfig.lookupValue("templates", itsDefaultTemplateDirectory);
       itsConfig.lookupValue("url", itsDefaultUrl);
