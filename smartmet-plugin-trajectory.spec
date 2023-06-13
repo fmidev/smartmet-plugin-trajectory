@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 23.1.25
+Version: 23.6.13
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
@@ -22,22 +22,22 @@ BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: %{smartmet_boost}-devel
-BuildRequires: smartmet-library-spine-devel >= 23.2.8
+BuildRequires: smartmet-library-spine-devel >= 23.6.13
 BuildRequires: smartmet-library-trajectory-devel >= 22.6.17
-BuildRequires: smartmet-library-macgyver-devel >= 22.12.16
-BuildRequires: smartmet-library-timeseries-devel >= 23.1.31
-BuildRequires: smartmet-engine-geonames-devel >= 23.1.18
-BuildRequires: smartmet-engine-querydata-devel >= 22.12.15
+BuildRequires: smartmet-library-macgyver-devel >= 23.6.6
+BuildRequires: smartmet-library-timeseries-devel >= 23.3.15
+BuildRequires: smartmet-engine-geonames-devel >= 23.6.13
+BuildRequires: smartmet-engine-querydata-devel >= 23.6.13
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 BuildRequires: zlib-devel
 Requires: libconfig17
-Requires: smartmet-library-macgyver >= 22.12.16
+Requires: smartmet-library-macgyver >= 23.6.6
 Requires: smartmet-library-trajectory >= 22.6.17
-Requires: smartmet-engine-geonames >= 23.1.18
-Requires: smartmet-engine-querydata >= 22.12.15
-Requires: smartmet-server >= 23.2.1
-Requires: smartmet-library-spine >= 23.2.8
+Requires: smartmet-engine-geonames >= 23.6.13
+Requires: smartmet-engine-querydata >= 23.6.13
+Requires: smartmet-server >= 23.5.19
+Requires: smartmet-library-spine >= 23.6.13
 %if 0%{rhel} >= 7
 Requires: %{smartmet_boost}-date-time
 Requires: %{smartmet_boost}-iostreams
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Tue Jun 13 2023 Mika Heiskanen <mika.heiskanen@fmi.fi> - 23.6.13-1.fmi
+- Support internal and environment variables in configuration files
+
 * Wed Jan 25 2023 Mika Heiskanen <mika.heiskanen@fmi.fi> - 23.1.25-1.fmi
 - Silenced CodeChecker warnings
 
