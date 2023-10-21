@@ -43,7 +43,7 @@ class Config
 
  private:
   libconfig::Config itsConfig;
-  std::string itsDefaultTemplateDirectory = "/usr/share/smartmet/trajectories";  // format templates
+  std::string itsDefaultTemplateDirectory = "/usr/share/smartmet/trajectory";  // format templates
   std::string itsDefaultUrl = "/trajectory";
   unsigned int itsDefaultTimeStep = 10;          // in minutes
   unsigned int itsDefaultSimulationLength = 24;  // simulation length in hours
