@@ -72,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 * Sat Oct 21 2023 Mika Heiskanen <mika.heiskanen@fmi.fi> - 23.10.21-1.fmi
 - Fixed default template directory to /usr/share/smartmet/trajectory
 
+* Fri Sep  1 2023 Mika Heiskanen <mheiskan@rhel8.dev.fmi.fi> - 23.8.1-1.fmi
+- Repackaged
+
 * Fri Jul 28 2023 Andris Pavēnis <andris.pavenis@fmi.fi> 23.7.28-1.fmi
 - Repackage due to bulk ABI changes in macgyver/newbase/spine
 
