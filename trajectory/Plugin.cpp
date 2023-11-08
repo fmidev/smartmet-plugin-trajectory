@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "Plugin.h"
-#include <boost/date_time/posix_time/posix_time.hpp>
+#include <macgyver/DateTime.h>
 #include <boost/filesystem/operations.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
@@ -38,11 +38,11 @@ namespace Trajectory
  */
 // ----------------------------------------------------------------------
 
-boost::posix_time::ptime parse_starttime(const std::string &theStr, unsigned long theTimeStep)
+Fmi::DateTime parse_starttime(const std::string &theStr, unsigned long theTimeStep)
 {
   try
   {
-    boost::posix_time::ptime p;
+    Fmi::DateTime p;
 
     if (theStr == "now")
       p = Fmi::TimeParser::parse("0");
@@ -55,7 +55,7 @@ boost::posix_time::ptime parse_starttime(const std::string &theStr, unsigned lon
       unsigned long offset =
           boost::numeric_cast<unsigned long>(p.time_of_day().total_seconds()) % (60 * theTimeStep);
       if (offset > 0)
-        p += boost::posix_time::seconds(boost::numeric_cast<long>(60 * theTimeStep - offset));
+        p += Fmi::Seconds(boost::numeric_cast<long>(60 * theTimeStep - offset));
     }
 
     return p;
@@ -113,7 +113,7 @@ void hash_trajector(CTPP::CDT &hash,
     {
       CTPP::CDT &group = hash["points"][i];
 
-      boost::posix_time::ptime pt = t;
+      Fmi::DateTime pt = t;
 
       // Track start and end times
       if (i == 0)
@@ -460,7 +460,7 @@ std::string Trajectory::Plugin::query(SmartMet::Spine::Reactor & /* theReactor *
 
     // Start time parsing is a bit special
 
-    boost::posix_time::ptime starttime = parse_starttime(
+    Fmi::DateTime starttime = parse_starttime(
         SmartMet::Spine::optional_string(theRequest.getParameter("starttime"), "now"), timestep);
 
     // Get the data to run the model with
@@ -601,7 +601,7 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
 
   try
   {
-    using boost::posix_time::ptime;
+    using Fmi::DateTime;
 
     if (checkRequest(theRequest, theResponse, false))
     {
@@ -616,7 +616,7 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
 
     // Now
 
-    ptime t_now = boost::posix_time::second_clock::universal_time();
+    Fmi::DateTime t_now = Fmi::SecondClock::universal_time();
 
     std::string response = query(theReactor, theRequest, theResponse);
     theResponse.setStatus(SmartMet::Spine::HTTP::Status::ok);
@@ -624,7 +624,7 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
 
     // Build cache expiration time info
 
-    ptime t_expires = t_now + boost::posix_time::seconds(expires_seconds);
+    Fmi::DateTime t_expires = t_now + Fmi::Seconds(expires_seconds);
 
     // The headers themselves
 
