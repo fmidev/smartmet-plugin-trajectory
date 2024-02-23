@@ -22,22 +22,22 @@ BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: %{smartmet_boost}-devel
-BuildRequires: smartmet-library-spine-devel >= 23.12.5
-BuildRequires: smartmet-library-trajectory-devel >= 23.7.28
-BuildRequires: smartmet-library-macgyver-devel >= 23.11.21
-BuildRequires: smartmet-library-timeseries-devel >= 23.11.21
-BuildRequires: smartmet-engine-geonames-devel >= 23.9.6
-BuildRequires: smartmet-engine-querydata-devel >= 23.12.4
+BuildRequires: smartmet-library-spine-devel >= 24.2.8
+BuildRequires: smartmet-library-trajectory-devel >= 24.2.23
+BuildRequires: smartmet-library-macgyver-devel >= 24.1.17
+BuildRequires: smartmet-library-timeseries-devel >= 24.2.23
+BuildRequires: smartmet-engine-geonames-devel >= 24.2.23
+BuildRequires: smartmet-engine-querydata-devel >= 24.2.23
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 BuildRequires: zlib-devel
 Requires: libconfig17
-Requires: smartmet-library-macgyver >= 23.11.21
-Requires: smartmet-library-trajectory >= 23.7.28
-Requires: smartmet-engine-geonames >= 23.9.6
-Requires: smartmet-engine-querydata >= 23.12.4
-Requires: smartmet-server >= 23.12.5
-Requires: smartmet-library-spine >= 23.12.5
+Requires: smartmet-library-macgyver >= 24.1.17
+Requires: smartmet-library-trajectory >= 24.2.23
+Requires: smartmet-engine-geonames >= 24.2.23
+Requires: smartmet-engine-querydata >= 24.2.23
+Requires: smartmet-server >= 24.2.22
+Requires: smartmet-library-spine >= 24.2.8
 %if 0%{rhel} >= 7
 Requires: %{smartmet_boost}-date-time
 Requires: %{smartmet_boost}-iostreams
