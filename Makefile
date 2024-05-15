@@ -20,7 +20,6 @@ LIBS += -L$(libdir) \
 	-lsmartmet-smarttools \
 	-lsmartmet-newbase \
 	-lsmartmet-macgyver \
-	-lboost_date_time \
 	-lboost_thread \
 	-lboost_iostreams \
 	$(REQUIRED_LIBS) \
