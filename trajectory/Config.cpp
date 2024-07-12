@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "Config.h"
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <macgyver/Exception.h>
 #include <spine/ConfigTools.h>
 #include <stdexcept>
@@ -31,7 +31,7 @@ Config::Config(const string& configfile)
     if (!configfile.empty())
     {
       // Enable sensible relative include paths
-      boost::filesystem::path p = configfile;
+      std::filesystem::path p = configfile;
       p.remove_filename();
       itsConfig.setIncludeDir(p.c_str());
 
