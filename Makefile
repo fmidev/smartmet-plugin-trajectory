@@ -14,7 +14,7 @@ INCLUDES += -I$(includedir)/smartmet
 INCLUDES += -isystem $(includedir)/smartmet/newbase
 INCLUDES += -isystem $(includedir)/mysql
 
-LIBS += -L$(libdir) \
+LIBS += $(PREFIX_LDFLAGS) \
 	-lsmartmet-spine \
 	-lsmartmet-trajectory \
 	-lsmartmet-smarttools \
@@ -69,7 +69,7 @@ install:
 	$(INSTALL_PROG) $(LIBFILE) $(plugindir)/$(LIBFILE)
 
 test:
-	cd test && make test
+	if [ -d test ] ; then $(MAKE) -C test $@ ; else echo "No tests available"; fi
 
 objdir:
 	@mkdir -p $(objdir)
