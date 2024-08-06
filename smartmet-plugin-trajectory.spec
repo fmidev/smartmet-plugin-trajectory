@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 24.5.16
+Version: 24.7.12
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
@@ -22,22 +22,22 @@ BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: %{smartmet_boost}-devel
-BuildRequires: smartmet-library-spine-devel >= 24.2.8
+BuildRequires: smartmet-library-spine-devel >= 24.7.12
 BuildRequires: smartmet-library-trajectory-devel >= 24.2.23
-BuildRequires: smartmet-library-macgyver-devel >= 24.1.17
-BuildRequires: smartmet-library-timeseries-devel >= 24.2.23
-BuildRequires: smartmet-engine-geonames-devel >= 24.2.23
-BuildRequires: smartmet-engine-querydata-devel >= 24.2.23
+BuildRequires: smartmet-library-macgyver-devel >= 24.7.12
+BuildRequires: smartmet-library-timeseries-devel >= 24.7.12
+BuildRequires: smartmet-engine-geonames-devel >= 24.7.12
+BuildRequires: smartmet-engine-querydata-devel >= 24.7.12
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 BuildRequires: zlib-devel
 Requires: libconfig17
-Requires: smartmet-library-macgyver >= 24.5.6
+Requires: smartmet-library-macgyver >= 24.7.12
 Requires: smartmet-library-trajectory >= 24.2.23
-Requires: smartmet-engine-geonames >= 24.5.6
-Requires: smartmet-engine-querydata >= 24.5.6
-Requires: smartmet-server >= 24.5.6
-Requires: smartmet-library-spine >= 24.5.6
+Requires: smartmet-engine-geonames >= 24.7.12
+Requires: smartmet-engine-querydata >= 24.7.12
+Requires: smartmet-server >= 24.7.12
+Requires: smartmet-library-spine >= 24.7.12
 %if 0%{rhel} >= 7
 Requires: %{smartmet_boost}-iostreams
 Requires: %{smartmet_boost}-thread
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Fri Jul 12 2024 Andris Pavēnis <andris.pavenis@fmi.fi> 24.7.12-1.fmi
+- Replace many boost library types with C++ standard library ones
+
 * Thu May 16 2024 Andris Pavēnis <andris.pavenis@fmi.fi> 24.5.16-1.fmi
 - Clean up boost date-time uses
 

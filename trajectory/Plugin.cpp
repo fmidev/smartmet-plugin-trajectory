@@ -264,7 +264,7 @@ std::string template_filename(const std::string &theFormat, const Config &theCon
  */
 // ----------------------------------------------------------------------
 
-std::string format_result(const boost::shared_ptr<NFmiTrajectory> &trajectory,
+std::string format_result(const std::shared_ptr<NFmiTrajectory> &trajectory,
                           const Fmi::TemplateFactory &theTemplateFactory,
                           const Config &theConfig,
                           const std::string &theFormat,
@@ -283,7 +283,7 @@ std::string format_result(const boost::shared_ptr<NFmiTrajectory> &trajectory,
 
     std::string tmpl = template_filename(theFormat, theConfig);
 
-    if (!boost::filesystem::exists(tmpl))
+    if (!std::filesystem::exists(tmpl))
       throw Fmi::Exception(BCP, "Unknown format '" + theFormat + "'");
 
     // Build the hash
@@ -475,7 +475,7 @@ std::string Trajectory::Plugin::query(SmartMet::Spine::Reactor & /* theReactor *
 
     // Calculate the trajectories
 
-    auto trajectory = boost::make_shared<NFmiTrajectory>();
+    auto trajectory = std::make_shared<NFmiTrajectory>();
 
     // Copy producer information
     trajectory->Producer(*q->info()->Producer());
@@ -628,7 +628,7 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
 
     // The headers themselves
 
-    boost::shared_ptr<Fmi::TimeFormatter> tformat(Fmi::TimeFormatter::create("http"));
+    std::shared_ptr<Fmi::TimeFormatter> tformat(Fmi::TimeFormatter::create("http"));
 
     std::string cachecontrol = "public, max-age=" + std::to_string(expires_seconds);
     std::string expiration = tformat->format(t_expires);
