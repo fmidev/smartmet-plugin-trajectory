@@ -24,7 +24,7 @@ BuildRequires: smartmet-library-trajectory-devel >= 24.8.7
 BuildRequires: smartmet-library-macgyver-devel >= 24.8.7
 BuildRequires: smartmet-library-timeseries-devel >= 24.8.7
 BuildRequires: smartmet-engine-geonames-devel >= 24.8.7
-BuildRequires: smartmet-engine-querydata-devel >= 24.8.7
+BuildRequires: smartmet-engine-querydata-devel >= 24.9.2
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 BuildRequires: zlib-devel
@@ -32,7 +32,7 @@ Requires: libconfig17
 Requires: smartmet-library-macgyver >= 24.8.7
 Requires: smartmet-library-trajectory >= 24.8.7
 Requires: smartmet-engine-geonames >= 24.8.7
-Requires: smartmet-engine-querydata >= 24.8.7
+Requires: smartmet-engine-querydata >= 24.9.2
 Requires: smartmet-server >= 24.8.7
 Requires: smartmet-library-spine >= 24.8.7
 %if 0%{rhel} >= 7
