@@ -603,11 +603,6 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
   {
     using Fmi::DateTime;
 
-    if (checkRequest(theRequest, theResponse, false))
-    {
-      return;
-    }
-
     isdebug = ("debug" == SmartMet::Spine::optional_string(theRequest.getParameter("format"), ""));
 
     // Default expiration time
