@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 25.9.1
+Version: 25.9.15
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Mon Sep 15 2025 Mika Heiskanen <mika.heiskanen@fmi.fi> 25.9.15-1.fmi
+- Silenced compiler warnings
+
 * Mon Sep  1 2025 Andris Pavēnis <andris.pavenis@fmi.fi> 25.9.1-1.fmi
 - Update according to smartmet-library-spine ABI changes
 
