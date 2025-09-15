@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "Plugin.h"
-#include <macgyver/DateTime.h>
 #include <boost/filesystem/operations.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
@@ -13,6 +12,7 @@
 #include <engines/geonames/Engine.h>
 #include <engines/querydata/Engine.h>
 #include <macgyver/AnsiEscapeCodes.h>
+#include <macgyver/DateTime.h>
 #include <macgyver/Exception.h>
 #include <newbase/NFmiFastQueryInfo.h>
 #include <newbase/NFmiQueryData.h>
@@ -638,11 +638,11 @@ void Plugin::requestHandler(SmartMet::Spine::Reactor &theReactor,
     if (response.empty())
     {
       std::cerr << "Warning: Empty input for request " << theRequest.getQueryString() << " from "
-                << theRequest.getClientIP() << std::endl;
+                << theRequest.getClientIP() << '\n';
     }
 
 #ifdef MYDEBUG
-    std::cout << "Output:" << std::endl << response << std::endl;
+    std::cout << "Output:" << std::endl << response << '\n';
 #endif
   }
 
@@ -693,7 +693,7 @@ Plugin::Plugin(SmartMet::Spine::Reactor *theReactor, const char *theConfig)
     {
       std::cerr << ANSI_BOLD_ON << ANSI_FG_RED
                 << "*** Trajectory Plugin and Server SmartMet API version mismatch ***"
-                << ANSI_FG_DEFAULT << ANSI_BOLD_OFF << std::endl;
+                << ANSI_FG_DEFAULT << ANSI_BOLD_OFF << '\n';
       return;
     }
   }
@@ -733,13 +733,13 @@ void Plugin::init()
 
     /* Register handler */
 
-    if (!itsReactor->addContentHandler(this,
-                                       itsConfig.defaultUrl(),
-                                       [this](Spine::Reactor &theReactor,
-                                              const Spine::HTTP::Request &theRequest,
-                                              Spine::HTTP::Response &theResponse) {
-                                         callRequestHandler(theReactor, theRequest, theResponse);
-                                       }))
+    if (!itsReactor->addContentHandler(
+            this,
+            itsConfig.defaultUrl(),
+            [this](Spine::Reactor &theReactor,
+                   const Spine::HTTP::Request &theRequest,
+                   Spine::HTTP::Response &theResponse)
+            { callRequestHandler(theReactor, theRequest, theResponse); }))
       throw Fmi::Exception(BCP, "Failed to register trajectory content handler");
   }
   catch (...)
