@@ -30,6 +30,10 @@ namespace Plugin
 {
 namespace Trajectory
 {
+
+namespace  // anonymous
+{
+
 // ----------------------------------------------------------------------
 /*!
  * \brief Parse the start time of the simulation
@@ -393,6 +397,8 @@ float maximum_value_vertically(NFmiFastQueryInfo &theQ,
     throw Fmi::Exception::Trace(BCP, "Operation failed!");
   }
 }
+
+}  // namespace
 
 // ----------------------------------------------------------------------
 /*!
