@@ -64,8 +64,8 @@ class Plugin : public SmartMetPlugin
   Fmi::TemplateFactory itsTemplateFactory;
 
   SmartMet::Spine::Reactor* itsReactor;
-  SmartMet::Engine::Querydata::Engine* itsQEngine;
-  SmartMet::Engine::Geonames::Engine* itsGeoEngine;
+  std::shared_ptr<SmartMet::Engine::Querydata::Engine> itsQEngine;
+  std::shared_ptr<SmartMet::Engine::Geonames::Engine> itsGeoEngine;
 
 };  // class Plugin
 
