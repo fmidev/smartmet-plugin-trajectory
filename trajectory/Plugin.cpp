@@ -731,13 +731,13 @@ void Plugin::init()
 
     /* Register handler */
 
-    if (!itsReactor->addContentHandler(
-            this,
-            itsConfig.defaultUrl(),
-            [this](Spine::Reactor &theReactor,
-                   const Spine::HTTP::Request &theRequest,
-                   Spine::HTTP::Response &theResponse)
-            { callRequestHandler(theReactor, theRequest, theResponse); }))
+    if (!itsReactor->addContentHandler(this,
+                                       itsConfig.defaultUrl(),
+                                       [this](Spine::Reactor &theReactor,
+                                              const Spine::HTTP::Request &theRequest,
+                                              Spine::HTTP::Response &theResponse) {
+                                         callRequestHandler(theReactor, theRequest, theResponse);
+                                       }))
       throw Fmi::Exception(BCP, "Failed to register trajectory content handler");
   }
   catch (...)
