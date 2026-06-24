@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 26.4.13
+Version: 26.6.24
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
@@ -23,22 +23,22 @@ BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: %{smartmet_boost}-devel
-BuildRequires: smartmet-library-spine-devel >= 26.4.13
+BuildRequires: smartmet-library-spine-devel >= 26.6.24
 BuildRequires: smartmet-library-trajectory-devel >= 26.4.13
-BuildRequires: smartmet-library-macgyver-devel >= 26.4.13
-BuildRequires: smartmet-library-timeseries-devel >= 26.4.13
-BuildRequires: smartmet-engine-geonames-devel >= 26.4.13
-BuildRequires: smartmet-engine-querydata-devel >= 26.4.13
+BuildRequires: smartmet-library-macgyver-devel >= 26.6.15
+BuildRequires: smartmet-library-timeseries-devel >= 26.5.5
+BuildRequires: smartmet-engine-geonames-devel >= 26.6.24
+BuildRequires: smartmet-engine-querydata-devel >= 26.6.24
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 BuildRequires: zlib-devel
 Requires: libconfig17
-Requires: smartmet-library-macgyver >= 26.4.13
+Requires: smartmet-library-macgyver >= 26.6.15
 Requires: smartmet-library-trajectory >= 26.4.13
-Requires: smartmet-engine-geonames >= 26.4.13
-Requires: smartmet-engine-querydata >= 26.4.13
-Requires: smartmet-server >= 26.4.13
-Requires: smartmet-library-spine >= 26.4.13
+Requires: smartmet-engine-geonames >= 26.6.24
+Requires: smartmet-engine-querydata >= 26.6.24
+Requires: smartmet-server >= 26.6.24
+Requires: smartmet-library-spine >= 26.6.24
 %if 0%{rhel} >= 7
 Requires: %{smartmet_boost}-iostreams
 Requires: %{smartmet_boost}-thread
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Wed Jun 24 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.6.24-1.fmi
+- Mass rebuild
+
 * Mon Apr 13 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.4.13-1.fmi
 - Repackaged due to API changes
 
