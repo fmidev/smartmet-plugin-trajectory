@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 26.8.26
+Version: 26.9.16
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
@@ -28,7 +28,7 @@ BuildRequires: smartmet-library-trajectory-devel >= 26.4.13
 BuildRequires: smartmet-library-macgyver-devel >= 26.8.19
 BuildRequires: smartmet-library-timeseries-devel >= 26.5.5
 BuildRequires: smartmet-engine-geonames-devel >= 26.7.31
-BuildRequires: smartmet-engine-querydata-devel >= 26.8.24
+BuildRequires: smartmet-engine-querydata-devel >= 26.9.16-2
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 BuildRequires: zlib-devel
@@ -36,7 +36,7 @@ Requires: libconfig17
 Requires: smartmet-library-macgyver >= 26.8.19
 Requires: smartmet-library-trajectory >= 26.4.13
 Requires: smartmet-engine-geonames >= 26.7.31
-Requires: smartmet-engine-querydata >= 26.8.24
+Requires: smartmet-engine-querydata >= 26.9.16-2
 Requires: smartmet-server >= 26.8.21
 Requires: smartmet-library-spine >= 26.8.24
 %if 0%{rhel} >= 7
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Wed Sep 16 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.9.16-1.fmi
+- Repackaged due to QEngine ABI changes (smartmet-engine-querydata >= 26.9.16-2)
+
 * Wed Aug 26 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.8.26-1.fmi
 - QEngine ABI changed
 
