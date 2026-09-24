@@ -439,6 +439,22 @@ std::string Trajectory::Plugin::query(SmartMet::Spine::Reactor & /* theReactor *
     unsigned long plumecount =
         SmartMet::Spine::optional_unsigned_long(theRequest.getParameter("plumes"), 0);
 
+    // Bound the simulation parameters to prevent a resource-exhaustion DoS and a
+    // timestep=0 division by zero. The number of integration steps is roughly
+    // length*60/timestep and each plume multiplies the work, so all three are capped
+    // to generous but finite values (a legitimate trajectory is at most a few weeks
+    // long with a handful of thousand plumes).
+    if (timestep == 0)
+      throw Fmi::Exception(BCP, "timestep must be greater than zero");
+    if (length > 24UL * 31UL)
+      throw Fmi::Exception(BCP, "length (simulation hours) is too large")
+          .addParameter("length", Fmi::to_string(length))
+          .addParameter("maximum", Fmi::to_string(24UL * 31UL));
+    if (plumecount > 5000)
+      throw Fmi::Exception(BCP, "plumes count is too large")
+          .addParameter("plumes", Fmi::to_string(plumecount))
+          .addParameter("maximum", "5000");
+
     double plumedisturbance = SmartMet::Spine::optional_double(
         theRequest.getParameter("disturbance"), itsConfig.defaultPlumeDisturbance());
 
