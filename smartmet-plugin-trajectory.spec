@@ -3,7 +3,7 @@
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
 Version: 26.10.3
-Release: 1%{?dist}.fmi
+Release: 2%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
 URL: https://github.com/fmidev/smartmet-plugin-trajectory
@@ -23,32 +23,32 @@ BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: %{smartmet_boost}-devel
-BuildRequires: smartmet-library-spine-devel >= 26.9.23
-BuildRequires: smartmet-library-trajectory-devel >= 26.4.13
-BuildRequires: smartmet-library-macgyver-devel >= 26.9.23
-BuildRequires: smartmet-library-timeseries-devel >= 26.9.16
-BuildRequires: smartmet-engine-geonames-devel >= 26.9.23
-BuildRequires: smartmet-engine-querydata-devel >= 26.9.16
+BuildRequires: smartmet-library-spine-devel >= 26.10.3
+BuildRequires: smartmet-library-trajectory-devel >= 26.10.3
+BuildRequires: smartmet-library-macgyver-devel >= 26.10.3
+BuildRequires: smartmet-library-timeseries-devel >= 26.10.3
+BuildRequires: smartmet-engine-geonames-devel >= 26.10.3
+BuildRequires: smartmet-engine-querydata-devel >= 26.10.3
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 BuildRequires: zlib-devel
 Requires: libconfig17
-Requires: smartmet-library-macgyver >= 26.9.23
-Requires: smartmet-library-trajectory >= 26.4.13
-Requires: smartmet-engine-geonames >= 26.9.23
-Requires: smartmet-engine-querydata >= 26.9.16
+Requires: smartmet-library-macgyver >= 26.10.3
+Requires: smartmet-library-trajectory >= 26.10.3
+Requires: smartmet-engine-geonames >= 26.10.3
+Requires: smartmet-engine-querydata >= 26.10.3
 Requires: smartmet-server >= 26.9.2
-Requires: smartmet-library-spine >= 26.9.23
+Requires: smartmet-library-spine >= 26.10.3
 %if 0%{rhel} >= 7
 Requires: %{smartmet_boost}-iostreams
 Requires: %{smartmet_boost}-thread
 %endif
 #TestRequires: smartmet-utils-devel >= 26.9.3
 #TestRequires: smartmet-library-spine-plugin-test >= 26.9.26
-#TestRequires: smartmet-library-trajectory >= 26.4.13
-#TestRequires: smartmet-engine-geonames >= 26.9.26
+#TestRequires: smartmet-library-trajectory >= 26.10.3
+#TestRequires: smartmet-engine-geonames >= 26.10.3
 #TestRequires: smartmet-engine-grid >= 26.9.26
-#TestRequires: smartmet-engine-querydata >= 26.9.23
+#TestRequires: smartmet-engine-querydata >= 26.10.3
 #TestRequires: smartmet-test-data >= 26.8.26
 #TestRequires: smartmet-test-db
 Provides: %{SPECNAME}
@@ -77,6 +77,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Sat Oct 03 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.10.3-2.fmi
+- Repackaged due to the macgyver AtomicSharedPtr ABI change
+
 * Sat Oct  3 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.10.3-1.fmi
 - Fixed a crash in backwards trajectories: the negated unsigned timestep stepped forward ~4.3e9 minutes
 - Fixed the sample configuration, the double valued settings must be written as floating point numbers
