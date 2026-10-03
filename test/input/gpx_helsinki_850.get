@@ -1,0 +1,2 @@
+GET /trajectory?model=ecmwf_skandinavia_painepinta&lonlat=24.94,60.17&starttime=200809091200&length=12&timestep=60&pressure=850&format=gpx HTTP/1.0
+

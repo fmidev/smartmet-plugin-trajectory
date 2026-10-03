@@ -1,0 +1,2 @@
+GET /trajectory?model=ecmwf_skandinavia_painepinta&place=Tampere&starttime=200809091200&length=6&timestep=30&pressure=700&format=kmlx HTTP/1.0
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trajectories producer="ECMWF level" direction="1" lon="24.94" lat="60.17" pressure="500">
+<trajectory index="0" name="Main trajectory">
+<point time="20080909T120000" lon="24.94" lat="60.17" pressure="500" height="5675.39990234"/>
+<point time="20080909T130000" lon="24.5517" lat="60.4441" pressure="458.200012207" height="6305"/>
+<point time="20080909T140000" lon="24.0838" lat="60.6691" pressure="439" height="6611.5"/>
+<point time="20080909T150000" lon="23.5314" lat="60.8528" pressure="428.600006104" height="6782.89990234"/>
+<point time="20080909T160000" lon="22.9208" lat="61.0209" pressure="421.299987793" height="6906.39990234"/>
+<point time="20080909T170000" lon="22.1607" lat="61.1827" pressure="415.299987793" height="7006.70019531"/>
+<point time="20080909T180000" lon="21.286" lat="61.3351" pressure="407.200012207" height="7148.20019531"/>
+<point time="20080909T190000" lon="20.3776" lat="61.4772" pressure="399.200012207" height="7288.10009766"/>
+<point time="20080909T200000" lon="19.4235" lat="61.6594" pressure="394.600006104" height="7371.20019531"/>
+<point time="20080909T210000" lon="18.3849" lat="61.8307" pressure="391" height="7437.89990234"/>
+<point time="20080909T220000" lon="17.2898" lat="62.0075" pressure="386.899993896" height="7513.39990234"/>
+<point time="20080909T230000" lon="16.2016" lat="62.2211" pressure="384" height="7568.70019531"/>
+<point time="20080910T000000" lon="15.1158" lat="62.4691" pressure="387.100006104" height="7512.70019531"/>
+</trajectory>
+</trajectories>
