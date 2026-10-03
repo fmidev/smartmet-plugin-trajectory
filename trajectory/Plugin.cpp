@@ -135,8 +135,9 @@ void hash_trajector(CTPP::CDT &hash,
 
       group["longitude"] = round(10000 * points[i].X()) / 10000;
       group["latitude"] = round(10000 * points[i].Y()) / 10000;
-      group["pressure"] = round(10 * pressures[i]) / 10;
-      group["height"] = round(10 * heights[i]) / 10;
+      // Round in double precision, a rounded float would print as for example 458.200012207
+      group["pressure"] = std::round(10.0 * pressures[i]) / 10.0;
+      group["height"] = std::round(10.0 * heights[i]) / 10.0;
 
       t.ChangeByMinutes(timestep);
     }

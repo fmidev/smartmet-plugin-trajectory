@@ -29,35 +29,35 @@
 <when>2008-09-09T17:00:00</when>
 <when>2008-09-09T17:30:00</when>
 <when>2008-09-09T18:00:00</when>
-<gx:coord>23.7871 61.4991 3053.19995117</gx:coord>
+<gx:coord>23.7871 61.4991 3053.2</gx:coord>
 <gx:coord>23.4819 61.5244 3066</gx:coord>
-<gx:coord>23.1544 61.5481 3081.60009766</gx:coord>
+<gx:coord>23.1544 61.5481 3081.6</gx:coord>
 <gx:coord>22.8048 61.5738 3102</gx:coord>
-<gx:coord>22.4364 61.6033 3130.80004883</gx:coord>
+<gx:coord>22.4364 61.6033 3130.8</gx:coord>
 <gx:coord>22.0503 61.6329 3172</gx:coord>
-<gx:coord>21.6493 61.6631 3218.60009766</gx:coord>
+<gx:coord>21.6493 61.6631 3218.6</gx:coord>
 <gx:coord>21.2391 61.6987 3257.5</gx:coord>
-<gx:coord>20.824 61.7382 3285.39990234</gx:coord>
+<gx:coord>20.824 61.7382 3285.4</gx:coord>
 <gx:coord>20.406 61.7784 3302.5</gx:coord>
-<gx:coord>19.9924 61.8204 3311.80004883</gx:coord>
+<gx:coord>19.9924 61.8204 3311.8</gx:coord>
 <gx:coord>19.5833 61.8616 3318.5</gx:coord>
 <gx:coord>19.1884 61.9117 3330</gx:coord>
 <ExtendedData>
 <SchemaData schemaUrl="#trajectoryschema">
 <gx:SimpleArrayData name="pressure">
 <gx:value>700</gx:value>
-<gx:value>698.799987793</gx:value>
-<gx:value>697.400024414</gx:value>
-<gx:value>695.599975586</gx:value>
-<gx:value>693.099975586</gx:value>
-<gx:value>689.400024414</gx:value>
-<gx:value>685.299987793</gx:value>
-<gx:value>681.900024414</gx:value>
-<gx:value>679.400024414</gx:value>
+<gx:value>698.8</gx:value>
+<gx:value>697.4</gx:value>
+<gx:value>695.6</gx:value>
+<gx:value>693.1</gx:value>
+<gx:value>689.4</gx:value>
+<gx:value>685.3</gx:value>
+<gx:value>681.9</gx:value>
+<gx:value>679.4</gx:value>
 <gx:value>678</gx:value>
-<gx:value>677.200012207</gx:value>
-<gx:value>676.700012207</gx:value>
-<gx:value>675.700012207</gx:value>
+<gx:value>677.2</gx:value>
+<gx:value>676.7</gx:value>
+<gx:value>675.7</gx:value>
 </gx:SimpleArrayData>
 </SchemaData>
 </ExtendedData>

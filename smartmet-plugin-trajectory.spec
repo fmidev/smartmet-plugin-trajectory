@@ -3,7 +3,7 @@
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
 Version: 26.10.3
-Release: 2%{?dist}.fmi
+Release: 3%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
 URL: https://github.com/fmidev/smartmet-plugin-trajectory
@@ -77,6 +77,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Sat Oct  3 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.10.3-3.fmi
+- Round pressures and heights in double precision, the output contained values like 458.200012207
+
 * Sat Oct 03 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.10.3-2.fmi
 - Repackaged due to the macgyver AtomicSharedPtr ABI change
 
