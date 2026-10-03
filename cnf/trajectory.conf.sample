@@ -3,15 +3,15 @@ url		= "/trajectory";
 timestep  	= 10;		// minutes
 length		= 24;		// hours
 format		= "kml";	// gpx, kml, kmz, kmlx, kmzx, xml, debug
-pressure	= 850;		// hPa
+pressure	= 850.0;		// hPa
 
 templates	= "/usr/share/smartmet/trajectory/";
 
 plume:
 {
-	disturbance	= 25;	// perturbation percentage
-	range		= 0;	// perturbation hPa
-	radius		= 0;	// perturbation km
+	disturbance	= 25.0;	// perturbation percentage
+	range		= 0.0;	// perturbation hPa
+	radius		= 0.0;	// perturbation km
 	interval	= 0;	// perturbation minutes
 };
 

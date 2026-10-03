@@ -97,7 +97,9 @@ void hash_trajector(CTPP::CDT &hash,
     const auto &heights = trajector.HeightValues();
 
     // For iteration
-    long timestep = (backwards ? -theTimeStep : theTimeStep);
+    // Note: negating the unsigned timestep directly would produce a huge positive value
+    const long step = static_cast<long>(theTimeStep);
+    const long timestep = (backwards ? -step : step);
 
     // Common information
 

@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 26.9.24
+Version: 26.10.3
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
@@ -43,6 +43,14 @@ Requires: smartmet-library-spine >= 26.9.23
 Requires: %{smartmet_boost}-iostreams
 Requires: %{smartmet_boost}-thread
 %endif
+#TestRequires: smartmet-utils-devel >= 26.9.3
+#TestRequires: smartmet-library-spine-plugin-test >= 26.9.26
+#TestRequires: smartmet-library-trajectory >= 26.4.13
+#TestRequires: smartmet-engine-geonames >= 26.9.26
+#TestRequires: smartmet-engine-grid >= 26.9.26
+#TestRequires: smartmet-engine-querydata >= 26.9.23
+#TestRequires: smartmet-test-data >= 26.8.26
+#TestRequires: smartmet-test-db
 Provides: %{SPECNAME}
 Obsoletes: smartmet-brainstorm-trajectory < 16.11.1
 Obsoletes: smartmet-brainstorm-trajectory-debuginfo < 16.11.1
@@ -69,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Sat Oct  3 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.10.3-1.fmi
+- Fixed a crash in backwards trajectories: the negated unsigned timestep stepped forward ~4.3e9 minutes
+- Fixed the sample configuration, the double valued settings must be written as floating point numbers
+
 * Thu Sep 24 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.9.24-1.fmi
 - Security: reject timestep=0 (division by zero) and cap the length and plumes
   request parameters to prevent resource-exhaustion DoS (H-9).
