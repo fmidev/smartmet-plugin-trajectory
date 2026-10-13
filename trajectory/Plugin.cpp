@@ -409,9 +409,9 @@ float maximum_value_vertically(NFmiFastQueryInfo &theQ,
  */
 // ----------------------------------------------------------------------
 
-std::string Trajectory::Plugin::query(SmartMet::Spine::Reactor & /* theReactor */,
+std::string Trajectory::Plugin::query(const SmartMet::Spine::Reactor& /* theReactor */,
                                       const SmartMet::Spine::HTTP::Request &theRequest,
-                                      SmartMet::Spine::HTTP::Response & /* theResponse */)
+                                      const SmartMet::Spine::HTTP::Response& /* theResponse */)
 {
   try
   {
