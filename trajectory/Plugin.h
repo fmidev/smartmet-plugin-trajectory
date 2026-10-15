@@ -43,6 +43,7 @@ class Plugin : public SmartMetPlugin
   Plugin& operator=(const Plugin& other) = delete;
   Plugin(Plugin&& other) = delete;
   Plugin& operator=(Plugin&& other) = delete;
+  ~Plugin() override = default;
 
   const std::string& getPluginName() const override;
   int getRequiredAPIVersion() const override;

@@ -80,6 +80,7 @@ rm -rf $RPM_BUILD_ROOT
 * Tue Oct 13 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.10.13-1.fmi
 - Declare member functions and parameters const where nothing is modified (const correctness), no functional changes
 - Requires 26.10.13 versions of spine, trajectory, engine-grid due to their ABI changes
+- Fixed clang-tidy correctness findings (member initialization, rule of five, printf formats, dead stores)
 
 * Sat Oct  3 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.10.3-3.fmi
 - Round pressures and heights in double precision, the output contained values like 458.200012207

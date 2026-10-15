@@ -24,6 +24,7 @@ class Config
   Config& operator=(const Config& other) = delete;
   Config(Config&& other) = delete;
   Config& operator=(Config&& other) = delete;
+  ~Config() = default;
 
   const std::string& defaultTemplateDirectory() const;
   const std::string& defaultUrl() const;
