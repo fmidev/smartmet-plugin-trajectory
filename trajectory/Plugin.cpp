@@ -401,6 +401,88 @@ float maximum_value_vertically(NFmiFastQueryInfo &theQ,
   }
 }
 
+// ----------------------------------------------------------------------
+/*!
+ * \brief Bound the simulation parameters
+ *
+ * Prevents a resource-exhaustion DoS and a timestep=0 division by zero.
+ */
+// ----------------------------------------------------------------------
+
+void validate_simulation_size(unsigned long timestep,
+                              unsigned long length,
+                              unsigned long plumecount)
+{
+  if (timestep == 0)
+    throw Fmi::Exception(BCP, "timestep must be greater than zero");
+  if (length > 24UL * 31UL)
+    throw Fmi::Exception(BCP, "length (simulation hours) is too large")
+        .addParameter("length", Fmi::to_string(length))
+        .addParameter("maximum", Fmi::to_string(24UL * 31UL));
+  if (plumecount > 5000)
+    throw Fmi::Exception(BCP, "plumes count is too large")
+        .addParameter("plumes", Fmi::to_string(plumecount))
+        .addParameter("maximum", "5000");
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Set the start pressure (range) from the start height (range)
+ */
+// ----------------------------------------------------------------------
+
+void set_start_height(NFmiTrajectory &trajectory,
+                      NFmiFastQueryInfo &info,
+                      double height,
+                      double heightrange)
+{
+  if (!info.Param(kFmiPressure))
+    throw Fmi::Exception(BCP, "Forecast data missing parameter Pressure");
+
+  // maximum pressure = lowest level value, but we do not know the order of the levels
+  float pmax = maximum_value_vertically(info, trajectory.LatLon(), trajectory.Time());
+
+  if (heightrange <= 0)
+  {
+    double p = info.HeightValue(height, trajectory.LatLon(), trajectory.Time());
+    if (p == kFloatMissing)
+      trajectory.PressureLevel(pmax);
+    else
+      trajectory.PressureLevel(p);
+  }
+  else
+  {
+    float dz = heightrange / 2;
+    float p1 = info.HeightValue(height - dz, trajectory.LatLon(), trajectory.Time());
+    float p2 = info.HeightValue(height + dz, trajectory.LatLon(), trajectory.Time());
+
+    if (p2 == kFloatMissing)
+      p2 = pmax;
+    if (p1 == kFloatMissing)
+      p1 = pmax;
+
+    trajectory.PressureLevel((p1 + p2) / 2);
+    trajectory.StartPressureLevelRange((p1 - p2) / 2);
+  }
+}
+
+// ----------------------------------------------------------------------
+/*!
+ * \brief Gzip compress a string
+ */
+// ----------------------------------------------------------------------
+
+std::string gzip_compress(const std::string &theString)
+{
+  boost::iostreams::filtering_stream<boost::iostreams::output> filter;
+  std::ostringstream out;
+  filter.push(boost::iostreams::gzip_compressor());
+  filter.push(out);
+  filter << theString;
+  filter.flush();
+  return out.str();
+}
+
 }  // namespace
 
 // ----------------------------------------------------------------------
@@ -447,16 +529,7 @@ std::string Trajectory::Plugin::query(const SmartMet::Spine::Reactor& /* theReac
     // length*60/timestep and each plume multiplies the work, so all three are capped
     // to generous but finite values (a legitimate trajectory is at most a few weeks
     // long with a handful of thousand plumes).
-    if (timestep == 0)
-      throw Fmi::Exception(BCP, "timestep must be greater than zero");
-    if (length > 24UL * 31UL)
-      throw Fmi::Exception(BCP, "length (simulation hours) is too large")
-          .addParameter("length", Fmi::to_string(length))
-          .addParameter("maximum", Fmi::to_string(24UL * 31UL));
-    if (plumecount > 5000)
-      throw Fmi::Exception(BCP, "plumes count is too large")
-          .addParameter("plumes", Fmi::to_string(plumecount))
-          .addParameter("maximum", "5000");
+    validate_simulation_size(timestep, length, plumecount);
 
     double plumedisturbance = SmartMet::Spine::optional_double(
         theRequest.getParameter("disturbance"), itsConfig.defaultPlumeDisturbance());
@@ -547,34 +620,7 @@ std::string Trajectory::Plugin::query(const SmartMet::Spine::Reactor& /* theReac
           SmartMet::Spine::optional_double(theRequest.getParameter("heightrange"), -1);
 
       auto info = q->info();
-      if (!info->Param(kFmiPressure))
-        throw Fmi::Exception(BCP, "Forecast data missing parameter Pressure");
-
-      // maximum pressure = lowest level value, but we do not know the order of the levels
-      float pmax = maximum_value_vertically(*info, trajectory->LatLon(), trajectory->Time());
-
-      if (heightrange <= 0)
-      {
-        double p = info->HeightValue(height, trajectory->LatLon(), trajectory->Time());
-        if (p == kFloatMissing)
-          trajectory->PressureLevel(pmax);
-        else
-          trajectory->PressureLevel(p);
-      }
-      else
-      {
-        float dz = heightrange / 2;
-        float p1 = info->HeightValue(height - dz, trajectory->LatLon(), trajectory->Time());
-        float p2 = info->HeightValue(height + dz, trajectory->LatLon(), trajectory->Time());
-
-        if (p2 == kFloatMissing)
-          p2 = pmax;
-        if (p1 == kFloatMissing)
-          p1 = pmax;
-
-        trajectory->PressureLevel((p1 + p2) / 2);
-        trajectory->StartPressureLevelRange((p1 - p2) / 2);
-      }
+      set_start_height(*trajectory, *info, height, heightrange);
     }
 
     // Calculate the trajectories
@@ -598,13 +644,7 @@ std::string Trajectory::Plugin::query(const SmartMet::Spine::Reactor& /* theReac
     if (!is_compressed_format(format))
       return result;
 
-    boost::iostreams::filtering_stream<boost::iostreams::output> filter;
-    std::ostringstream out;
-    filter.push(boost::iostreams::gzip_compressor());
-    filter.push(out);
-    filter << result;
-    filter.flush();
-    return out.str();
+    return gzip_compress(result);
   }
   catch (...)
   {
