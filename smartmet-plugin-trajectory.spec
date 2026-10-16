@@ -2,7 +2,7 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 26.10.15
+Version: 26.10.16
 Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
@@ -23,32 +23,32 @@ BuildRequires: rpm-build
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: %{smartmet_boost}-devel
-BuildRequires: smartmet-library-spine-devel >= 26.10.15
-BuildRequires: smartmet-library-trajectory-devel >= 26.10.15
-BuildRequires: smartmet-library-macgyver-devel >= 26.10.15
-BuildRequires: smartmet-library-timeseries-devel >= 26.10.15
-BuildRequires: smartmet-engine-geonames-devel >= 26.10.15
-BuildRequires: smartmet-engine-querydata-devel >= 26.10.15
+BuildRequires: smartmet-library-spine-devel >= 26.10.16
+BuildRequires: smartmet-library-trajectory-devel >= 26.10.16
+BuildRequires: smartmet-library-macgyver-devel >= 26.10.16
+BuildRequires: smartmet-library-timeseries-devel >= 26.10.16
+BuildRequires: smartmet-engine-geonames-devel >= 26.10.16
+BuildRequires: smartmet-engine-querydata-devel >= 26.10.16
 BuildRequires: smartmet-library-smarttools-devel
 BuildRequires: bzip2-devel
 BuildRequires: zlib-devel
 Requires: libconfig17
-Requires: smartmet-library-macgyver >= 26.10.15
-Requires: smartmet-library-trajectory >= 26.10.15
-Requires: smartmet-engine-geonames >= 26.10.15
-Requires: smartmet-engine-querydata >= 26.10.15
-Requires: smartmet-server >= 26.10.15
-Requires: smartmet-library-spine >= 26.10.15
+Requires: smartmet-library-macgyver >= 26.10.16
+Requires: smartmet-library-trajectory >= 26.10.16
+Requires: smartmet-engine-geonames >= 26.10.16
+Requires: smartmet-engine-querydata >= 26.10.16
+Requires: smartmet-server >= 26.10.16
+Requires: smartmet-library-spine >= 26.10.16
 %if 0%{rhel} >= 7
 Requires: %{smartmet_boost}-iostreams
 Requires: %{smartmet_boost}-thread
 %endif
 #TestRequires: smartmet-utils-devel >= 26.9.3
-#TestRequires: smartmet-library-spine-plugin-test >= 26.10.15
-#TestRequires: smartmet-library-trajectory >= 26.10.15
-#TestRequires: smartmet-engine-geonames >= 26.10.15
-#TestRequires: smartmet-engine-grid >= 26.10.15
-#TestRequires: smartmet-engine-querydata >= 26.10.15
+#TestRequires: smartmet-library-spine-plugin-test >= 26.10.16
+#TestRequires: smartmet-library-trajectory >= 26.10.16
+#TestRequires: smartmet-engine-geonames >= 26.10.16
+#TestRequires: smartmet-engine-grid >= 26.10.16
+#TestRequires: smartmet-engine-querydata >= 26.10.16
 #TestRequires: smartmet-test-data >= 26.8.26
 #TestRequires: smartmet-test-db
 Provides: %{SPECNAME}
@@ -77,6 +77,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Fri Oct 16 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.10.16-1.fmi
+- Rebuilt due to ABI changes in macgyver, spine, newbase and other libraries
+
 * Thu Oct 15 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.10.15-1.fmi
 - Declare member functions and parameters const where nothing is modified (const correctness), no functional changes
 - Requires 26.10.15 versions of spine, trajectory, engine-grid due to their ABI changes
