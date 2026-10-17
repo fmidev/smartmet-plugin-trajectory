@@ -1,9 +1,11 @@
 url		= "/trajectory";
 
-timestep  	= 10;		// minutes
-length		= 24;		// hours
+timestep  	= 10;		// minutes, must be > 0
+length		= 24;		// hours, at most 744 (31 days) in a request
 format		= "kml";	// gpx, kml, kmz, kmlx, kmzx, xml, debug
 pressure	= 850.0;		// hPa
+model		= "ecmwf_eurooppa_mallipinta";	// default producer
+isentropic	= false;	// isentropic trajectories by default
 
 templates	= "/usr/share/smartmet/trajectory/";
 

@@ -33,7 +33,7 @@ The actual trajectory math lives in `smartmet-library-trajectory` (`NFmiTrajecto
 
 ## Key HTTP request parameters
 
-`place`/`latlon`, `starttime`, `model` (default: `ecmwf_eurooppa_mallipinta`), `pressure` (hPa), `height`, `heightrange`, `timestep` (minutes), `length` (hours), `format` (kml/kmz/gpx/xml/debug), `backwards`, `isentropic`, `plumes`, `disturbance`, `radius`, `range`, `interval`, `tessellate`, `extrude`.
+`place`/`latlon`, `starttime`, `model` (default: `ecmwf_eurooppa_mallipinta`), `pressure` (hPa), `height`, `heightrange`, `timestep` (minutes), `length` (hours), `format` (kml/kmz/gpx/xml/debug), `backwards`, `isentropic`, `plumes`, `disturbance`, `radius`, `range`, `interval`, `tessellate`, `extrude`. Requests are limited to `timestep` > 0, `length` at most 744 hours (31 days) and at most 5000 `plumes`.
 
 ## Output formatting
 
