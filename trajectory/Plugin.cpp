@@ -257,6 +257,14 @@ std::string template_filename(const std::string &theFormat, const Config &theCon
 {
   try
   {
+    // The format names a template file. It is an identifier (kml, gpx, xml, ...);
+    // reject path separators and dots so a request cannot select an arbitrary
+    // *.c2t elsewhere on the host or probe for file existence. (Path traversal.)
+    if (theFormat.empty() ||
+        theFormat.find_first_of("/\\") != std::string::npos ||
+        theFormat.find('.') != std::string::npos)
+      throw Fmi::Exception(BCP, "Invalid format '" + theFormat + "'");
+
     return (theConfig.defaultTemplateDirectory() + "/" + theFormat + ".c2t");
   }
   catch (...)
