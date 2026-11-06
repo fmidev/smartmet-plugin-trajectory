@@ -5,6 +5,7 @@
 // ======================================================================
 
 #include "Plugin.h"
+#include <boost/algorithm/string.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
