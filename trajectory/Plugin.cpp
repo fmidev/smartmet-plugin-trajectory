@@ -424,6 +424,11 @@ void validate_simulation_size(unsigned long timestep,
 {
   if (timestep == 0)
     throw Fmi::Exception(BCP, "timestep must be greater than zero");
+  // A huge timestep would make 60*timestep wrap to zero in the start time rounding
+  if (timestep > 24UL * 60UL)
+    throw Fmi::Exception(BCP, "timestep (minutes) is too large")
+        .addParameter("timestep", Fmi::to_string(timestep))
+        .addParameter("maximum", Fmi::to_string(24UL * 60UL));
   if (length > 24UL * 31UL)
     throw Fmi::Exception(BCP, "length (simulation hours) is too large")
         .addParameter("length", Fmi::to_string(length))
