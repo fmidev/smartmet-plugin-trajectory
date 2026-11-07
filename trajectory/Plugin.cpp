@@ -437,6 +437,16 @@ void validate_simulation_size(unsigned long timestep,
     throw Fmi::Exception(BCP, "plumes count is too large")
         .addParameter("plumes", Fmi::to_string(plumecount))
         .addParameter("maximum", "5000");
+
+  // The individual limits above still allow a huge total number of simulated points,
+  // limit the product too. The values are bounded above, so this cannot overflow.
+  const unsigned long max_points = 250000;
+  const unsigned long steps = length * 60 / timestep + 1;
+  if (steps * (plumecount + 1) > max_points)
+    throw Fmi::Exception(BCP, "simulation size (steps * (plumes + 1)) is too large")
+        .addParameter("steps", Fmi::to_string(steps))
+        .addParameter("plumes", Fmi::to_string(plumecount))
+        .addParameter("maximum", Fmi::to_string(max_points));
 }
 
 // ----------------------------------------------------------------------
