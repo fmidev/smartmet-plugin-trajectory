@@ -607,7 +607,7 @@ std::string Trajectory::Plugin::query(const SmartMet::Spine::Reactor& /* theReac
     trajectory->TimeStepInMinutes(boost::numeric_cast<int>(timestep));
     trajectory->TimeLengthInHours(boost::numeric_cast<int>(length));
 
-    // Plume initial dispersion radius, start time interval, and pressure disribution
+    // Plume initial dispersion radius, start time interval, and pressure distribution
     trajectory->StartLocationRangeInKM(plumeradius);
     trajectory->StartTimeRangeInMinutes(boost::numeric_cast<int>(plumeinterval));
     trajectory->StartPressureLevelRange(plumerange);
