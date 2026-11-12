@@ -7,11 +7,20 @@
 #pragma once
 
 #include "Config.h"
-
 #include <macgyver/TemplateFactory.h>
-#include <spine/HTTP.h>
-#include <spine/Reactor.h>
 #include <spine/SmartMetPlugin.h>
+#include <memory>
+#include <string>
+
+namespace SmartMet::Spine::HTTP
+{
+class Request;
+class Response;
+}  // namespace SmartMet::Spine::HTTP
+namespace SmartMet::Spine
+{
+class Reactor;
+}  // namespace SmartMet::Spine
 
 namespace SmartMet
 {
@@ -31,7 +40,6 @@ namespace Plugin
 {
 namespace Trajectory
 {
-class PluginImpl;
 
 class Plugin : public SmartMetPlugin
 {

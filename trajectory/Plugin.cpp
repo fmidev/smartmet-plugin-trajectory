@@ -6,24 +6,44 @@
 
 #include "Plugin.h"
 #include <boost/algorithm/string.hpp>
-#include <boost/filesystem/operations.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
-#include <boost/make_shared.hpp>
+#include <boost/thread.hpp>
+#include <ctpp2/CDT.hpp>
 #include <engines/geonames/Engine.h>
 #include <engines/querydata/Engine.h>
+#include <engines/querydata/Q.h>
 #include <macgyver/AnsiEscapeCodes.h>
 #include <macgyver/DateTime.h>
 #include <macgyver/Exception.h>
+#include <macgyver/StringConversion.h>
+#include <macgyver/TemplateFormatter.h>
+#include <macgyver/TimeFormatter.h>
+#include <macgyver/TimeParser.h>
 #include <newbase/NFmiFastQueryInfo.h>
-#include <newbase/NFmiQueryData.h>
+#include <newbase/NFmiGlobals.h>
+#include <newbase/NFmiLevelType.h>
+#include <newbase/NFmiMetTime.h>
+#include <newbase/NFmiParameterName.h>
+#include <newbase/NFmiPoint.h>
+#include <newbase/NFmiProducer.h>
+#include <newbase/NFmiString.h>
 #include <spine/Convenience.h>
+#include <spine/HTTP.h>
 #include <spine/HostInfo.h>
+#include <spine/Location.h>
+#include <spine/Reactor.h>
 #include <spine/SmartMet.h>
+#include <trajectory/NFmiSingleTrajector.h>
 #include <trajectory/NFmiTrajectory.h>
 #include <trajectory/NFmiTrajectorySystem.h>
-
-#include <stdexcept>
+#include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <filesystem>
+#include <iostream>
+#include <sstream>
+#include <vector>
 
 namespace SmartMet
 {
