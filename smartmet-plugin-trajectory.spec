@@ -2,8 +2,8 @@
 %define SPECNAME smartmet-plugin-%{DIRNAME}
 Summary: SmartMet trajectory plugin
 Name: %{SPECNAME}
-Version: 26.11.7
-Release: 2%{?dist}.fmi
+Version: 26.11.13
+Release: 1%{?dist}.fmi
 License: FMI
 Group: SmartMet/Pluginss
 URL: https://github.com/fmidev/smartmet-plugin-trajectory
@@ -77,6 +77,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/smartmet/plugins/%{DIRNAME}.so
 
 %changelog
+* Fri Nov 13 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.11.13-1.fmi
+- Include cleanup: files include what they use, unnecessary includes removed. No functional changes
+
 * Sat Nov 7 2026 Mika Heiskanen <mika.heiskanen@fmi.fi> - 26.11.7-2.fmi
 - Limit the total simulation size (steps times trajectories)
 
